@@ -1,3 +1,4 @@
+using UI;
 using UnityEngine;
 
 namespace Player {
@@ -12,6 +13,8 @@ namespace Player {
         public PlayerStats playerStats;
         public Transform weaponFollowPoint;
 
+        [SerializeField] private HeartContainer hc;
+
         private Vector2 m_MovementVector;
         private Rigidbody2D m_Rigidbody2D;
         private float m_DodgingDuration = 0;
@@ -21,6 +24,7 @@ namespace Player {
         #region Unity Events
         private void Start() {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            hc.UpdateHealth(playerStats.currHealth, playerStats.maxHealth);
         }
 
         private void FixedUpdate() {
@@ -80,6 +84,26 @@ namespace Player {
             }
             
             m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement);
+        }
+        
+        //odinpart
+
+        public void DamagePlayer(int dmg)
+        {
+            if (playerStats.currHealth > 0)
+            {
+                playerStats.currHealth -= dmg;
+                hc.UpdateHealth(playerStats.currHealth, playerStats.maxHealth);
+            }
+        }
+
+        public void HealPlayer(int dmg)
+        {
+            if (playerStats.currHealth < playerStats.maxHealth)
+            {
+                playerStats.currHealth += dmg;
+                hc.UpdateHealth(playerStats.currHealth, playerStats.maxHealth);
+            }
         }
     }
 }

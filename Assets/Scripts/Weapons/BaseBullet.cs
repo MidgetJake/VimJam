@@ -3,8 +3,8 @@ using UnityEngine;
 namespace Weapons {
     public class BaseBullet : MonoBehaviour {
         public BaseBulletStats stats;
-
-        private Vector2 m_MoveVector;
+        public Vector2 moveVector;
+        
         private Rigidbody2D m_Rigidbody2D;
 
         private void Start() {
@@ -12,7 +12,7 @@ namespace Weapons {
         }
         
         private void FixedUpdate() {
-            Vector2 movement = (m_MoveVector * (stats.bulletSpeed * Time.deltaTime));
+            Vector2 movement = (moveVector * (stats.bulletSpeed * Time.deltaTime));
             m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement);
         }
     }

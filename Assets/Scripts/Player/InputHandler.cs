@@ -64,7 +64,6 @@ namespace Player {
         }
 
         public void OnLook(InputValue input) {
-            Debug.Log(input.Get<Vector2>());
             m_InputValues.aimVector = input.Get<Vector2>();
         }
 

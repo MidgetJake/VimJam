@@ -16,12 +16,16 @@ namespace Weapons {
 
         public void Fire(Vector2 aimVector) {
             if (m_FireCooldown > 0) {
+                m_FireCooldown -= Time.deltaTime;
                 return;
             }
 
+            Vector2 aimDir = -(((Vector2)firePoint.position) - aimVector).normalized;
+            
             m_FireCooldown = 1 / (float) weaponStats.fireRate;
             BaseBullet newBullet = Instantiate(bullet, firePoint.position, Quaternion.identity);
             newBullet.stats = weaponStats.bulletStats;
+            newBullet.moveVector = aimDir;
         }
     }
 }

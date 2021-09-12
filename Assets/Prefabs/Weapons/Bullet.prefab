@@ -102,6 +102,9 @@ MonoBehaviour:
     bulletDamage: 1
     bulletSpeed: 10
     bulletSize: 0.5
+    lifetime: 0
+  impactParticle: {fileID: 2187378320846111579, guid: f1f673ff51973cf45a3e19f400e97515, type: 3}
+  impactEnemyParticle: {fileID: 5768841226446099267, guid: e19c76765c94b0a4db24dfb1785298df, type: 3}
   moveVector: {x: 0, y: 0}
 --- !u!50 &4345334354165186204
 Rigidbody2D:

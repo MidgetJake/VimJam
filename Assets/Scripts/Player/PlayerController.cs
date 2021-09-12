@@ -1,4 +1,6 @@
+using UI;
 using UnityEngine;
+using Weapons;
 
 namespace Player {
     public enum CharacterState {
@@ -11,6 +13,8 @@ namespace Player {
         public CharacterState state = CharacterState.Default;
         public PlayerStats playerStats;
         public Transform weaponFollowPoint;
+        public Crosshair crosshair;
+        public BaseWeapon currentWeapon; 
 
         private Vector2 m_MovementVector;
         private Rigidbody2D m_Rigidbody2D;
@@ -66,6 +70,11 @@ namespace Player {
             if (inputs.dodge && state == CharacterState.Default) {
                 ChangeState(CharacterState.Dodging);
                 m_DodgeVector = inputs.moveAxis;
+            }
+            
+            crosshair.AimCrosshair(inputs.aimVector);
+            if (inputs.fire) {
+                currentWeapon.Fire(crosshair.transform.position);
             }
         }
 

@@ -9,6 +9,8 @@ namespace Weapons {
         public BaseBullet bullet;
         public BaseWeaponStats weaponStats;
 
+        [SerializeField] private bool m_IsEnemyGun;
+
         private float m_FireCooldown;
         
         private void FixedUpdate() {
@@ -50,6 +52,7 @@ namespace Weapons {
             BaseBullet newBullet = Instantiate(bullet, firePoint.position, Quaternion.identity);
             newBullet.stats = weaponStats.bulletStats;
             newBullet.moveVector = fireDir;
+            newBullet.isEnemyGun = m_IsEnemyGun;
         }
     }
 }

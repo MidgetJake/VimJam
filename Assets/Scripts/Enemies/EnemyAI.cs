@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Weapons;
 
 public class Target {
     public GameObject obj;
@@ -31,6 +32,7 @@ namespace Enemies {
         private bool isShooting = false;
         private NavMeshAgent agent;
 
+        [SerializeField] private BaseWeapon m_BaseWeapon;
         [SerializeField] private bool m_Debug;
 
         public void Start() {
@@ -65,8 +67,7 @@ namespace Enemies {
 
                 yield return new WaitForSeconds(m_ShootRate);
 
-                // SHOOT HERE
-
+                if (CurrentTarget != null) { m_BaseWeapon.Fire(CurrentTarget.position); }
 
                 if (CurrentTarget != null) { StartCoroutine(Shoot()); }
                 else { isShooting = false; }

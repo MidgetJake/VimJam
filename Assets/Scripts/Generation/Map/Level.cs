@@ -1,3 +1,4 @@
+using Assets.Scripts.Controller;
 using Managers;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,24 +20,24 @@ public class Tile {
 
 namespace Generation.Map {
     public static class Level {
-        public static int maxRooms = 3;
-        public static Vector2 gridSize = new Vector2(16, 16);
+
         public static Grid[] rooms;
         public static Grid grid;
 
         private static Vector2[][] m_sections;
-        private static float m_padding = 2;
+        private static Vector2 m_GridSize;        
 
         // Main generation call
         public static void Generate() {
-            m_sections = SetupSections(gridSize.x, gridSize.y);
-            rooms = new Grid[maxRooms];
+            m_GridSize = LevelController.controller.gridSize;
+            m_sections = SetupSections(m_GridSize.x, m_GridSize.y);
+            rooms = new Grid[LevelController.controller.numberOfRooms];
 
-            for (int roomIndex = 0; roomIndex < maxRooms; roomIndex++) {
-                Vector2 centerPos = new Vector2(gridSize.x * roomIndex, 0);
+            for (int roomIndex = 0; roomIndex < LevelController.controller.numberOfRooms; roomIndex++) {
+                Vector2 centerPos = new Vector2(m_GridSize.x * roomIndex, 0);
 
                 List<int[]> enemySpawners = new List<int[]>();
-                Tile[,] tiles = new Tile[(int)gridSize.x, (int)gridSize.y];
+                Tile[,] tiles = new Tile[(int)m_GridSize.x, (int)m_GridSize.y];
 
                 GenerateTiles(centerPos, ref tiles, ref enemySpawners);
 
@@ -44,7 +45,7 @@ namespace Generation.Map {
                     Tiles = tiles,
                     enemySpawners = enemySpawners,
                     centerPos = centerPos,
-                    isBossRoom = roomIndex + 1 == maxRooms,
+                    isBossRoom = roomIndex + 1 == LevelController.controller.numberOfRooms,
                     prefabCenterPosArr = GetPrefabSpawnCenterPos(centerPos),
                 };
                 rooms[roomIndex] = room;
@@ -64,8 +65,8 @@ namespace Generation.Map {
         }
 
         private static Tile[,] GenerateTiles(Vector2 centerPos, ref Tile[,] tiles, ref List<int[]> enemySpawner) {
-            for (int x = 0; x < gridSize.x; x++) {
-                for (int y = 0; y < gridSize.y; y++) {
+            for (int x = 0; x < m_GridSize.x; x++) {
+                for (int y = 0; y < m_GridSize.y; y++) {
 
                     Vector2 localPos = new Vector2(x, y);
                     (bool isPrefabArea, bool isEnemySpawner) = GiveType(localPos);
@@ -73,7 +74,7 @@ namespace Generation.Map {
                     tiles[x, y] = new Tile() {
                         isPrefabArea = isPrefabArea,
                         isEnemySpawner = isEnemySpawner,
-                        position = new Vector2(centerPos.x - (x - (gridSize.x / 2f)) - .5f, centerPos.y - (y - (gridSize.y / 2f)) - .5f),
+                        position = new Vector2(centerPos.x - (x - (m_GridSize.x / 2f)) - .5f, centerPos.y - (y - (m_GridSize.y / 2f)) - .5f),
                         localPos = localPos,
                     };
 
@@ -101,12 +102,15 @@ namespace Generation.Map {
             return (isSpawn, isEnemySpawner);
         }
 
-        private static Vector2[][] SetupSections(float x, float y) =>
-            new Vector2[4][] {
-                new Vector2[2] { new Vector2(m_padding, m_padding), new Vector2((x/2) - m_padding, (y/2) - m_padding ) },
-                new Vector2[2] { new Vector2((x/2) + m_padding, m_padding), new Vector2(x- m_padding, (y/2 - m_padding)) },
-                new Vector2[2] { new Vector2(m_padding, (y/2) + m_padding), new Vector2((x/2) - m_padding, y -m_padding ) },
-                new Vector2[2] { new Vector2((x/2) + m_padding, (y/2) + m_padding), new Vector2(x- m_padding, y - m_padding ) },
+        private static Vector2[][] SetupSections(float x, float y) {
+            int padding = LevelController.controller.m_padding;
+            return new Vector2[4][] {
+                new Vector2[2] { new Vector2(padding, padding), new Vector2((x/2) - padding, (y/2) - padding) },
+                new Vector2[2] { new Vector2((x/2) + padding, padding), new Vector2(x- padding, (y/2 - padding)) },
+                new Vector2[2] { new Vector2(padding, (y/2) + padding), new Vector2((x/2) - padding, y - padding) },
+                new Vector2[2] { new Vector2((x/2) + padding, (y/2) + padding), new Vector2(x- padding, y - padding) },
             };
+        }
+            
     }
 }

@@ -9,7 +9,7 @@ namespace Player {
     
     public class PlayerController : MonoBehaviour {
         public CharacterState state = CharacterState.Default;
-        public PlayerStats playerStats;
+        public BaseStats playerStats;
         public Transform weaponFollowPoint;
 
         private Vector2 m_MovementVector;

@@ -13,11 +13,11 @@ TagManager:
   - UI
   - Office_Prefab
   - Walls
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Character
+  - Enemy
+  - Bullet
+  - Floor
+  - Upgrade
   - 
   - 
   - 

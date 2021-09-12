@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 0.2
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.06666667
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -238,7 +238,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 544082476}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeaponFollowPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +311,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -440,7 +440,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 934468324}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CrosshairAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -584,7 +584,9 @@ GameObject:
   - component: {fileID: 1210657384}
   - component: {fileID: 1210657383}
   - component: {fileID: 1210657382}
-  m_Layer: 0
+  - component: {fileID: 1210657387}
+  - component: {fileID: 1210657386}
+  m_Layer: 8
   m_Name: Character
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -620,14 +622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  playerStats:
-    movementSpeed: 5
-    dodgeSpeed: 15
-    dodgeTime: 0.21
-    currHealth: 1
-    maxHealth: 1
-    currStamina: 10
-    maxStamina: 10
+  playerStats: {fileID: 1210657386}
   weaponFollowPoint: {fileID: 544082476}
 --- !u!50 &1210657383
 Rigidbody2D:
@@ -716,7 +711,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -728,6 +723,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1210657386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210657380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6a3145f3df64b06a60dc33f9aeb6a71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  movementSpeed: 5
+  dodgeSpeed: 15
+  dodgeTime: 0.33
+  currStamina: 10
+  maxStamina: 10
+  minMaxHealth: {x: 0, y: 100}
+--- !u!114 &1210657387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210657380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57701eb606ab76e4890cf99349f04d9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnSpawn:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDeath:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHeal:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1420999066
 GameObject:
   m_ObjectHideFlags: 0
@@ -774,7 +812,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7838984, y: 1}
+    m_SensorSize: {x: 1.523918, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -842,8 +880,10 @@ MonoBehaviour:
   - {fileID: 7038614007257710640, guid: 9806213b1b8bf6143ab1cda9915a854a, type: 3}
   - {fileID: 7038614007257710640, guid: 10c4e0d9b5d011042826fa60fa9c2259, type: 3}
   - {fileID: 7038614007257710640, guid: fa29680bebdbcf6418c13f3bf17b5b8a, type: 3}
-  m_Enemies: []
-  m_Bosses: []
+  m_Enemies:
+  - {fileID: 8020914385343389557, guid: 8c080e6b7339beb468897c3c969b4941, type: 3}
+  m_Bosses:
+  - {fileID: 8020914385343389557, guid: 61400ff4834bc6443a078bcd61503630, type: 3}
   m_StartingWall: {fileID: 5176006791299375962, guid: 081624599decd3b4f84b11d8384c0fc5, type: 3}
   m_FinishLine: {fileID: 7633210666103277959, guid: 7f589ea5aa09bd44b9a473104fb770a3, type: 3}
   m_Player: {fileID: 8020914385343389557, guid: bdd5f08f23169ab4781c4b49ba0eb4d3, type: 3}
@@ -860,15 +900,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Player: {fileID: 1210657380}
+  m_MainParent: {fileID: 2052723073}
   seeder:
     seed: 1
-    useRandom: 0
+    useRandom: 1
   m_LevelController:
     prevLevel: 
     regenLevel: 
     nextLevel: 
-  enemiesPerLevel: 2
+  numberOfRooms: 3
+  enemiesPerRoom: 3
+  m_padding: 2
+  gridSize: {x: 16, y: 16}
   currentLevel: 0
+  m_EnableTileView: 0
 --- !u!4 &1555852314
 Transform:
   m_ObjectHideFlags: 0
@@ -1088,7 +1133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1862508302}
   - component: {fileID: 1862508303}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Crosshair
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1209,3 +1254,95 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2052723071
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2052723073}
+  - component: {fileID: 2052723072}
+  - component: {fileID: 2052723074}
+  m_Layer: 0
+  m_Name: MainParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2052723072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052723071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 148387606d0ccd84fa326ca211f274ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 2
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_OverrideByGrid: 0
+  m_UseMeshPrefab: {fileID: 0}
+  m_CompressBounds: 0
+  m_OverrideVector: {x: 1, y: 1, z: 1}
+  m_DefaultArea: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.06666667
+  m_BuildHeightMesh: 0
+  m_HideEditorLogs: 0
+  m_NavMeshData: {fileID: 0}
+--- !u!4 &2052723073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052723071}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.16130084, y: -2.710181, z: -327.82217}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2052723074
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2052723071}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

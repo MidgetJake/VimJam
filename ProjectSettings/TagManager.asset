@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Bullet
+  - Floor
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,13 +14,13 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Office_Prefab
+  - Walls
+  - Character
+  - Enemy
   - Bullet
-  - 
-  - 
+  - Floor
+  - Upgrade
   - 
   - 
   - 

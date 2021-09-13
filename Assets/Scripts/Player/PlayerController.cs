@@ -11,7 +11,7 @@ namespace Player {
     
     public class PlayerController : MonoBehaviour {
         public CharacterState state = CharacterState.Default;
-        public PlayerStats playerStats;
+        public BaseStats playerStats;
         public Transform weaponFollowPoint;
         public Crosshair crosshair;
         public BaseWeapon currentWeapon; 

@@ -1,4 +1,5 @@
-﻿using Events;
+﻿using Assets.Scripts.Enemies;
+using Events;
 using Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -42,6 +43,7 @@ namespace Enemies {
         public override void Death() {
             enabled = false;
             m_AI.enabled = false;
+            GetComponent<Loot>().Drop();
             Destroy(gameObject);
         }
     }

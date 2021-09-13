@@ -24,13 +24,14 @@ namespace Player {
             if (health < minMaxHealth.x) { health = minMaxHealth.x; }
             if (health <= minMaxHealth.x) { m_EventsHandler.Death(); }
 
-            //if (m_IsPlayer) { m_Player.selfStats.health = health; }
+            // TODO - PLEASE HEALTH BAR UPDATE (SUBTRACT HERE)
         }
 
         public virtual void Heal(float heal = 1) {
             health += heal;
             if (health > minMaxHealth.y) { health = minMaxHealth.y; }
-            //if (m_IsPlayer) { m_Player.selfStats.health = health; }
+
+            // TODO - PLEASE HEALTH BAR UPDATE (ADDING HEALTH)
         }
 
         public virtual void Death() {

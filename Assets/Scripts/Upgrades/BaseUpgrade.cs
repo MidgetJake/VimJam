@@ -1,4 +1,5 @@
 using System;
+using Items;
 using Player;
 using UnityEngine;
 
@@ -18,14 +19,14 @@ namespace Upgrades {
         Multiply,
     }
     
-    public class BaseUpgrade : MonoBehaviour {
+    public class BaseUpgrade : BaseInteractable {
         public UpgradeAttribute[] upgradeAttributes;
         public Method[] methods;
         public float[] values;
         public string description;
 
         // This method is nasty. But I don't care enough to do another way
-        public void OnInteract(PlayerController player) {
+        private void OnInteract(PlayerController player) {
             for (int i = 0; i < upgradeAttributes.Length; i++) {
                 float value = 0;
                 
@@ -45,7 +46,7 @@ namespace Upgrades {
                         break;
                     case UpgradeAttribute.WeaponSpeed:
                         value = player.currentWeapon.weaponStats.fireRate;
-                        player.currentWeapon.weaponStats.fireRate = (int) DoMethod(methods[i], value, values[i]);
+                        player.currentWeapon.weaponStats.fireRate = DoMethod(methods[i], value, values[i]);
                         break;
                     case UpgradeAttribute.WeaponRange:
                         value = player.currentWeapon.weaponStats.bulletStats.lifetime;
@@ -62,6 +63,8 @@ namespace Upgrades {
                         throw new ArgumentOutOfRangeException();
                 }
             }
+            
+            Destroy(gameObject);
         }
 
         private float DoMethod(Method method, float value, float modifier) {
@@ -71,11 +74,9 @@ namespace Upgrades {
                 return value * modifier;
             }
         }
-        
-        private void OnTriggerEnter2D(Collider2D other) {
-            if (!other.transform.CompareTag("Player")) {
-                return;
-            }
+
+        public override void Interact(PlayerController player) {
+            OnInteract(player);
         }
     }
 }

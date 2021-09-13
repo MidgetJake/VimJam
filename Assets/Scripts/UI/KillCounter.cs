@@ -5,8 +5,11 @@ namespace UI
 {
     public class KillCounter : MonoBehaviour
     {
-        public TextMeshProUGUI killCounter;
-        
+        private TextMeshProUGUI killCounter;
+        private void Start()
+        {
+            killCounter = GetComponent<TextMeshProUGUI>();
+        }
         void SetKillCounter(int kills)
         {
             killCounter.text = "Kills:" + kills.ToString();

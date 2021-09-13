@@ -110,7 +110,10 @@ MonoBehaviour:
       bulletSpeed: 10
       bulletSize: 1
       lifetime: 5
-  m_IsEnemyGun: 1
+  isDefault: 0
+  maxAmmo: 100
+  currAmmo: 100
+  isEnemyWeapon: 1
 --- !u!1 &5510338107837533705
 GameObject:
   m_ObjectHideFlags: 0

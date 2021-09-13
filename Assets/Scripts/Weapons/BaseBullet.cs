@@ -29,6 +29,10 @@ namespace Weapons {
         }
 
         private void OnHit(bool hitEnemey, ref Collider2D collider) {
+            if (hitEnemey && isEnemyGun) {
+                return;
+            }
+            
             if (hitEnemey) {
                 Instantiate(impactEnemyParticle, transform.position, Quaternion.identity);
                 // Do enemy hit stuffs
@@ -36,17 +40,24 @@ namespace Weapons {
                 Instantiate(impactParticle, transform.position, Quaternion.identity);
             }
 
-            collider.gameObject.GetComponent<EventsHandler>().OnDamage.Invoke(stats.bulletDamage);
+            EventsHandler eHandler = collider.gameObject.GetComponent<EventsHandler>();
+            if (eHandler != null) {
+                eHandler.OnDamage.Invoke(stats.bulletDamage);
+            }
+            
             Destroy(gameObject);
         }
         
         private void OnTriggerEnter2D(Collider2D collider) {
             if (collider.CompareTag("Floor")) { return; }
-
-            if ((isEnemyGun && collider.CompareTag("Player")) || 
-                (!isEnemyGun && collider.CompareTag("Enemy"))) {
-                OnHit(collider.CompareTag("Enemy"), ref collider);
+            if (!isEnemyGun && collider.CompareTag("Player")) {
+                return;
             }
+
+            /*if ((isEnemyGun && collider.CompareTag("Player")) || 
+                (!isEnemyGun && collider.CompareTag("Enemy"))) {*/
+                OnHit(collider.CompareTag("Enemy"), ref collider);
+            // }
         }
     }
 }

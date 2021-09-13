@@ -11,6 +11,7 @@ namespace Weapons {
         public bool isDefault = false;
         public int maxAmmo = 100;
         public int currAmmo = 100;
+        public bool isEnemyWeapon = false;
 
         private float m_FireCooldown;
 
@@ -69,6 +70,7 @@ namespace Weapons {
             BaseBullet newBullet = Instantiate(bullet, firePoint.position, Quaternion.identity);
             newBullet.transform.localScale *= weaponStats.bulletStats.bulletSize;
             newBullet.stats = weaponStats.bulletStats;
+            newBullet.isEnemyGun = isEnemyWeapon;
             newBullet.moveVector = fireDir;
         }
     }

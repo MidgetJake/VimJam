@@ -208,6 +208,8 @@ MonoBehaviour:
   weaponFollowPoint: {fileID: 123169033}
   crosshair: {fileID: 831040844}
   currentWeapon: {fileID: 711937380}
+  defaultWeapon: {fileID: 0}
+  extraWeapon: {fileID: 0}
 --- !u!50 &420547883
 Rigidbody2D:
   serializedVersion: 4
@@ -426,7 +428,10 @@ MonoBehaviour:
       bulletSpeed: 10
       bulletSize: 1
       lifetime: 5
-  m_IsEnemyGun: 0
+  isDefault: 1
+  maxAmmo: 100
+  currAmmo: 100
+  isEnemyWeapon: 0
 --- !u!212 &711937381
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1284,7 +1289,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.0058997, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

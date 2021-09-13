@@ -1,25 +1,15 @@
 ﻿using Assets.Scripts.Controller;
 using Generation.Map;
 using Managers;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Generation.Enemies {
     public static class EnemySpawner {
         private static Transform m_EnemyParent;
 
-        private static void Clear() {
-            if (m_EnemyParent != null) { Destroy(m_EnemyParent.gameObject); }
+        public static void Spawn(ref Transform mainParent) {
             m_EnemyParent = new GameObject("EnemyParent").transform;
-        }
-
-        private static void Destroy(GameObject gameObject) {
-            throw new NotImplementedException();
-        }
-
-        public static void Spawn() {
-            // Resetting
-            Clear();
+            m_EnemyParent.SetParent(mainParent);
 
             foreach (var room in Level.rooms) {
                 int[] randomTile;

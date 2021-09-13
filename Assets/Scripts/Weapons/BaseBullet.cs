@@ -12,7 +12,6 @@ namespace Weapons {
         
         private Rigidbody2D m_Rigidbody2D;
         
-
         private void Start() {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             StartCoroutine(DestroySelf());
@@ -38,17 +37,16 @@ namespace Weapons {
             }
 
             collider.gameObject.GetComponent<EventsHandler>().OnDamage.Invoke(stats.bulletDamage);
-
             Destroy(gameObject);
         }
         
         private void OnTriggerEnter2D(Collider2D collider) {
             if (collider.CompareTag("Floor")) { return; }
 
-            if (isEnemyGun && collider.CompareTag("Enemy")) { return; }
-            else if (!isEnemyGun && collider.CompareTag("Player")) { return; }
-            
-            OnHit(collider.CompareTag("Enemy"), ref collider);
+            if ((isEnemyGun && collider.CompareTag("Player")) || 
+                (!isEnemyGun && collider.CompareTag("Enemy"))) {
+                OnHit(collider.CompareTag("Enemy"), ref collider);
+            }
         }
     }
 }

@@ -1,3 +1,4 @@
+using Items;
 using UI;
 using UnityEngine;
 using Weapons;
@@ -14,13 +15,17 @@ namespace Player {
         public BaseStats playerStats;
         public Transform weaponFollowPoint;
         public Crosshair crosshair;
-        public BaseWeapon currentWeapon; 
-
+        public BaseWeapon currentWeapon;
+        public BaseWeapon defaultWeapon;
+        public BaseWeapon extraWeapon;
+        
+        private bool m_HoldingDefault = true;
         private Vector2 m_MovementVector;
         private Rigidbody2D m_Rigidbody2D;
         private float m_DodgingDuration = 0;
         private Vector2 m_DodgeVector;
         private bool m_WeaponLeft = true;
+        private BaseInteractable m_CurrentInteractable;
 
         #region Unity Events
         private void Start() {
@@ -76,8 +81,52 @@ namespace Player {
             if (inputs.fire) {
                 currentWeapon.Fire(crosshair.transform.position);
             }
+
+            if (inputs.interact && m_CurrentInteractable != null) {
+                m_CurrentInteractable.Interact(this);
+            }
+
+            if (inputs.switchWeapon) {
+                ChangeWeapon();
+            }
         }
 
+        public void PickupWeapon(BaseWeapon weapon) {
+            weapon.firePoint = defaultWeapon.firePoint;
+            weapon.followTransform = defaultWeapon.followTransform;
+            
+            if (m_HoldingDefault) {
+                extraWeapon = weapon;
+            } else {
+                currentWeapon = weapon;
+                extraWeapon = weapon;
+            }
+        }
+        
+        private void ChangeWeapon() {
+            if (extraWeapon == null) {
+                return;
+            }
+            
+            if (m_HoldingDefault) {
+                m_HoldingDefault = false;
+                defaultWeapon = currentWeapon;
+                currentWeapon = extraWeapon;
+            } else {
+                m_HoldingDefault = true;
+                extraWeapon = currentWeapon;
+                currentWeapon = defaultWeapon;
+            }
+        }
+        
+        public void OnEnterInteractable(BaseInteractable interactable) {
+            m_CurrentInteractable = interactable;
+        }
+
+        public void OnExitInteractable(BaseInteractable interactable) {
+            m_CurrentInteractable = null;
+        }
+        
         private void UpdateMovement(Vector2 moveVector) {
             Vector2 movement = (moveVector * (playerStats.movementSpeed * Time.deltaTime));
             if (m_DodgingDuration < playerStats.dodgeTime && state == CharacterState.Dodging) {

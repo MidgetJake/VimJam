@@ -8,8 +8,9 @@ namespace Weapons {
         public Transform firePoint;
         public BaseBullet bullet;
         public BaseWeaponStats weaponStats;
-
-        [SerializeField] private bool m_IsEnemyGun;
+        public bool isDefault = false;
+        public int maxAmmo = 100;
+        public int currAmmo = 100;
 
         private float m_FireCooldown;
 
@@ -22,11 +23,13 @@ namespace Weapons {
         private void FixedUpdate() {
             transform.position = Vector2.Lerp(transform.position, followTransform.position, followSpeed);
         }
-
+        
         public void ChangeStats(BaseWeaponStats stats) => weaponStats = stats;
 
         public void Fire(Vector2 aimVector) {
-            if (m_FireCooldown > 0) { return; }
+            if (m_FireCooldown > 0) {
+                return;
+            }
             
             m_FireCooldown = 1 / (float) weaponStats.fireRate;
 
@@ -34,6 +37,13 @@ namespace Weapons {
             float totalDelay = 0;
 
             for (int i = 0; i < weaponStats.bulletCount; i++) {
+                if (!isDefault) {
+                    if (currAmmo <= 0) {
+                        return;
+                    }
+                    currAmmo--;
+                }
+                
                 Vector2 fireDir = aimDir;
                 float fireDelay = 0;
                 
@@ -47,17 +57,19 @@ namespace Weapons {
                     totalDelay = fireDelay;
                 }
 
+                
+                
                 StartCoroutine(FireBullet(fireDir, fireDelay));
             }
         }
 
         private IEnumerator FireBullet(Vector2 fireDir, float delay = 0) {
             yield return new WaitForSecondsRealtime(delay);
-            
+
             BaseBullet newBullet = Instantiate(bullet, firePoint.position, Quaternion.identity);
+            newBullet.transform.localScale *= weaponStats.bulletStats.bulletSize;
             newBullet.stats = weaponStats.bulletStats;
             newBullet.moveVector = fireDir;
-            newBullet.isEnemyGun = m_IsEnemyGun;
         }
     }
 }

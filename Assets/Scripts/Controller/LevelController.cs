@@ -38,7 +38,16 @@ namespace Assets.Scripts.Controller {
 
         public void TriggerRegenLevel() => NewLevel();
 
+        private void ClearLevel() {
+            Destroy(m_MainParent.gameObject);
+            m_MainParent = new GameObject("Main Parent").transform;
+            // Must be 270 for 2d Nav Mesh to work
+            m_MainParent.rotation = Quaternion.Euler(270, 0, 0);
+        }
+
         public void NewLevel() {
+            ClearLevel();
+
             currentLevel++;
 
             // Sorting out seed
@@ -62,19 +71,16 @@ namespace Assets.Scripts.Controller {
             // FINAL
             SetupNavMesh();
             SpawnPlayer();
-            EnemySpawner.Spawn();
+            EnemySpawner.Spawn(ref m_MainParent);
         }
 
         private void SetupNavMesh() {
-            //m_MainParent.transform.rotation = new Quaternion(-90, 0, 0, 0);
-            m_MainParent.gameObject.AddComponent<BoxCollider2D>();
-            NavMeshSurface2d surface = m_MainParent.gameObject.GetComponent<NavMeshSurface2d>();
-
-            surface.collectObjects = CollectObjects2d.Children;
-            surface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
-            
-            Physics2D.SyncTransforms();
-            surface.BuildNavMesh();
+            //m_MainParent.gameObject.AddComponent<BoxCollider2D>();
+            NavMeshSurface2d nav = m_MainParent.gameObject.AddComponent<NavMeshSurface2d>();
+            nav.collectObjects = CollectObjects2d.Children;
+            nav.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+            Physics2D.SyncTransforms(); // Applying all transformation for dynamic nav mesh build
+            nav.BuildNavMesh();
         }
 
         //Helpers
@@ -106,7 +112,7 @@ namespace Assets.Scripts.Controller {
                 }
 
                 if (room.isBossRoom) { SetupBossDesk(room, ref m_DeskParent); continue;  }
-
+                
                 desk = PrefabController.controller.GetRandomDesk();
                 SpawnControl(ref desk, room.centerPos, GetRandomRotation(), new Vector2(4, 4), m_DeskParent);
             }
@@ -147,14 +153,14 @@ namespace Assets.Scripts.Controller {
         }
         private void SetupFinishLine() {
             GameObject finishLine = PrefabController.controller.GetFinishLine();
-            Vector2 centerPosLastRoom = Level.rooms[enemiesPerRoom - 1].centerPos;
+            Vector2 centerPosLastRoom = Level.rooms[numberOfRooms - 1].centerPos;
             Vector2 pos = new Vector2(centerPosLastRoom.x + (gridSize.x / 2) + (finishLine.transform.localScale.x / 2), 0);
             Vector2 scale = new Vector2(finishLine.transform.localScale.x, gridSize.y);
             SpawnControl(ref finishLine, pos, Quaternion.identity, scale, m_MainParent);
         }
         private void SpawnPlayer() {
             Vector2 pos = new Vector2(0 - (gridSize.x / 2) - 1, 0);
-            SpawnControl(ref m_Player, pos, Quaternion.identity, Vector2.one, null);
+            SpawnControl(ref m_Player, pos, Quaternion.identity, m_Player.transform.localScale, null);
         }
 
         // Drawing for debugging purposes

@@ -23,10 +23,10 @@ namespace Weapons {
             transform.position = Vector2.Lerp(transform.position, followTransform.position, followSpeed);
         }
 
+        public void ChangeStats(BaseWeaponStats stats) => weaponStats = stats;
+
         public void Fire(Vector2 aimVector) {
-            if (m_FireCooldown > 0) {
-                return;
-            }
+            if (m_FireCooldown > 0) { return; }
             
             m_FireCooldown = 1 / (float) weaponStats.fireRate;
 

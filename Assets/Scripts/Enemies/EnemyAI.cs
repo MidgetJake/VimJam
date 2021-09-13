@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Events;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -15,6 +16,7 @@ namespace Enemies {
         [Header("Personality")]
         public bool canMove = true;
         public bool canShootWhileMoving = true;
+        public bool isBoss = false;
         [Range(1, 7)] public float minDistanceFromPlayer;
         [Range(1, 50)] [SerializeField] private float m_DetectionRange = 10;
         [Tooltip("Seconds")]
@@ -31,13 +33,16 @@ namespace Enemies {
         private bool isForgetting = false;
         private bool isShooting = false;
         private NavMeshAgent agent;
+        private EventsHandler m_EventHandler;
 
-        [SerializeField] private BaseWeapon m_BaseWeapon;
         [SerializeField] private bool m_Debug;
 
         public void Start() {
             StartCoroutine(Detection());
             agent = GetComponent<NavMeshAgent>();
+            m_EventHandler = GetComponent<EventsHandler>();
+            // Setting agent to correct spawn location
+            agent.Warp(transform.position);
         }
 
         private void Update() {
@@ -67,7 +72,7 @@ namespace Enemies {
 
                 yield return new WaitForSeconds(m_ShootRate);
 
-                if (CurrentTarget != null) { m_BaseWeapon.Fire(CurrentTarget.position); }
+                if (CurrentTarget != null) { m_EventHandler.Attack(CurrentTarget.position); }
 
                 if (CurrentTarget != null) { StartCoroutine(Shoot()); }
                 else { isShooting = false; }

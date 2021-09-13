@@ -47,6 +47,13 @@ namespace Managers {
             return dict[key];
         }
 
+        public static T ItemFromArray<T>(T[] list) {
+            if (list.Length <= 0) { Debug.LogError("This list is empty, that means there is nothing to randomly select."); }
+            int listCount = list.Length;
+            int randomIndex = GetValue(0, listCount);
+            return list[randomIndex];
+        }
+
         public static T ItemFromList<T>(List<T> list) {
             if (list.Count <= 0) { Debug.LogError("This list is empty, that means there is nothing to randomly select."); }
             int listCount = list.Count;

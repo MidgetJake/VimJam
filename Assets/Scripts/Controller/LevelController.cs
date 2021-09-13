@@ -160,7 +160,7 @@ namespace Assets.Scripts.Controller {
         }
         private void SpawnPlayer() {
             Vector2 pos = new Vector2(0 - (gridSize.x / 2) - 1, 0);
-            SpawnControl(ref m_Player, pos, Quaternion.identity, Vector2.one, null);
+            SpawnControl(ref m_Player, pos, Quaternion.identity, m_Player.transform.localScale, null);
         }
 
         // Drawing for debugging purposes

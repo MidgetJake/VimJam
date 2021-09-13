@@ -23,6 +23,8 @@ namespace Weapons {
         private void FixedUpdate() {
             transform.position = Vector2.Lerp(transform.position, followTransform.position, followSpeed);
         }
+        
+        public void ChangeStats(BaseWeaponStats stats) => weaponStats = stats;
 
         public void Fire(Vector2 aimVector) {
             if (m_FireCooldown > 0) {

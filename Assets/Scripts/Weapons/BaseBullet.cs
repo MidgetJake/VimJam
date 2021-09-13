@@ -1,4 +1,4 @@
-using System;
+using Events;
 using System.Collections;
 using UnityEngine;
 
@@ -8,9 +8,10 @@ namespace Weapons {
         public ParticleSystem impactParticle;
         public ParticleSystem impactEnemyParticle;
         public Vector2 moveVector;
+        public bool isEnemyGun;
         
         private Rigidbody2D m_Rigidbody2D;
-
+        
         private void Start() {
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             StartCoroutine(DestroySelf());
@@ -27,22 +28,25 @@ namespace Weapons {
             Destroy(gameObject);
         }
 
-        private void OnHit(bool hitEnemey) {
+        private void OnHit(bool hitEnemey, ref Collider2D collider) {
             if (hitEnemey) {
                 Instantiate(impactEnemyParticle, transform.position, Quaternion.identity);
                 // Do enemy hit stuffs
             } else {
                 Instantiate(impactParticle, transform.position, Quaternion.identity);
             }
+
+            collider.gameObject.GetComponent<EventsHandler>().OnDamage.Invoke(stats.bulletDamage);
             Destroy(gameObject);
         }
         
-        private void OnTriggerEnter2D(Collider2D other) {
-            if (other.gameObject.CompareTag("Player")) {
-                return;
+        private void OnTriggerEnter2D(Collider2D collider) {
+            if (collider.CompareTag("Floor")) { return; }
+
+            if ((isEnemyGun && collider.CompareTag("Player")) || 
+                (!isEnemyGun && collider.CompareTag("Enemy"))) {
+                OnHit(collider.CompareTag("Enemy"), ref collider);
             }
-            
-            OnHit(false);
         }
     }
 }

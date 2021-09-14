@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Enemies;
+﻿using Assets.Scripts.Controller;
+using Assets.Scripts.Enemies;
 using Events;
 using Player;
 using UnityEngine;
@@ -7,6 +8,9 @@ using UnityEngine.AI;
 namespace Enemies {
     [RequireComponent(typeof(BaseStats))]
     public class BaseEnemy : BaseStats {
+        [HideInInspector]
+        public bool isActive = true;
+
         private bool m_CanMove = true;
         private EnemyAI m_AI;
 
@@ -28,6 +32,7 @@ namespace Enemies {
         }
 
         public void Update() {
+            if (!isActive) { return; }
             if (!isActiveAndEnabled) { return; }
 
             if (m_AI.CurrentTarget == null) { return; }
@@ -38,11 +43,14 @@ namespace Enemies {
             if (!m_CanMove && m_FreezeOnTarget) { return; }
         }
 
-        public override void TakeDamage(float damage = 1) { base.TakeDamage(damage); }
+        public override void TakeDamage(float damage = 1) { 
+            if (isActive) { base.TakeDamage(damage); } 
+        }
 
         public override void Death() {
             enabled = false;
             m_AI.enabled = false;
+            LevelController.controller.RecordDeath();
             GetComponent<Loot>().Drop();
             Destroy(gameObject);
         }

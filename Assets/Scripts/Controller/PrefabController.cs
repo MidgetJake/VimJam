@@ -14,6 +14,7 @@ namespace Managers {
         [SerializeField] private List<GameObject> m_Enemies;
         [SerializeField] private List<GameObject> m_Bosses;
         [SerializeField] private GameObject m_StartingWall;
+        [SerializeField] private GameObject m_FinalWall;
         [SerializeField] private GameObject m_FinishLine;
 
         public GameObject GetRandomDesk() => Instantiate(RandomManager.ItemFromList(m_Desks));
@@ -23,6 +24,7 @@ namespace Managers {
         public GameObject GetRandomEnemy() => Instantiate(RandomManager.ItemFromList(m_Enemies));
         public GameObject GetRandomBoss() => Instantiate(RandomManager.ItemFromList(m_Bosses));
         public GameObject GetStartingWall() => Instantiate(m_StartingWall);
+        public GameObject GetFinalWall() => Instantiate(m_FinalWall);
         public GameObject GetFinishLine() => Instantiate(m_FinishLine);
     }
 }

@@ -110,7 +110,10 @@ MonoBehaviour:
       bulletSpeed: 10
       bulletSize: 1
       lifetime: 5
-  m_IsEnemyGun: 1
+  isDefault: 0
+  maxAmmo: 100
+  currAmmo: 100
+  isEnemyWeapon: 1
 --- !u!1 &6856368248748096965
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,6 +161,7 @@ GameObject:
   - component: {fileID: 7670812767199314738}
   - component: {fileID: 3745141958945810924}
   - component: {fileID: 3388007682756574335}
+  - component: {fileID: 3302480774045863095}
   m_Layer: 2
   m_Name: Blank_Boss
   m_TagString: Enemy
@@ -316,7 +320,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canMove: 1
   canShootWhileMoving: 1
-  isBoss: 0
+  isBoss: 1
   minDistanceFromPlayer: 2
   m_DetectionRange: 10
   m_DetectionRate: 1
@@ -336,13 +340,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe990e880f1b4194f8153255625ab2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 10
   movementSpeed: 5
   dodgeSpeed: 15
   dodgeTime: 0.33
   currStamina: 10
   maxStamina: 10
   minMaxHealth: {x: 0, y: 100}
+  isActive: 0
   eventHandler: {fileID: 0}
   m_ShowLaser: 0
   m_Target: {fileID: 0}
@@ -468,8 +473,10 @@ MonoBehaviour:
     - fireRate: 2
       bulletCount: 2
       bulletOffsets:
-      - 0
+      - -2
+      - 2
       bulletFireDelay:
+      - 0
       - 0
       bulletStats:
         bulletDamage: 10
@@ -484,7 +491,10 @@ MonoBehaviour:
       - 10
       - 0
       - -10
-      bulletFireDelay: []
+      bulletFireDelay:
+      - 0
+      - 0
+      - 0
       bulletStats:
         bulletDamage: 20
         bulletSpeed: 10
@@ -500,9 +510,26 @@ MonoBehaviour:
       - 0
       - 10
       - 20
-      bulletFireDelay: []
+      bulletFireDelay:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
       bulletStats:
         bulletDamage: 20
         bulletSpeed: 12
         bulletSize: 2
         lifetime: 10
+--- !u!114 &3302480774045863095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8020914385343389557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efe4024d437fed140aa42ee3d65183a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

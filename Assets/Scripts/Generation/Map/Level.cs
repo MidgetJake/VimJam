@@ -1,4 +1,5 @@
 using Assets.Scripts.Controller;
+using Enemies;
 using Managers;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,9 @@ public class Grid {
     public Vector2 centerPos;
     public Vector2[] prefabCenterPosArr;
     public bool isBossRoom;
+    public DoorController doorControl;
+    public int enemyCount;
+    public BaseEnemy boss;
 }
 
 public class Tile {
@@ -25,7 +29,7 @@ namespace Generation.Map {
         public static Grid grid;
 
         private static Vector2[][] m_sections;
-        private static Vector2 m_GridSize;        
+        private static Vector2 m_GridSize;
 
         // Main generation call
         public static void Generate() {
@@ -33,13 +37,14 @@ namespace Generation.Map {
             m_sections = SetupSections(m_GridSize.x, m_GridSize.y);
             rooms = new Grid[LevelController.controller.numberOfRooms];
 
-            for (int roomIndex = 0; roomIndex < LevelController.controller.numberOfRooms; roomIndex++) {
+            for (int roomIndex=0; roomIndex < LevelController.controller.numberOfRooms; roomIndex++) {
+
                 Vector2 centerPos = new Vector2(m_GridSize.x * roomIndex, 0);
 
                 List<int[]> enemySpawners = new List<int[]>();
                 Tile[,] tiles = new Tile[(int)m_GridSize.x, (int)m_GridSize.y];
 
-                GenerateTiles(centerPos, ref tiles, ref enemySpawners);
+                GenerateTiles(centerPos, ref tiles, ref enemySpawners, ref roomIndex);
 
                 Grid room = new Grid {
                     Tiles = tiles,
@@ -64,12 +69,12 @@ namespace Generation.Map {
             return centerPos;
         }
 
-        private static Tile[,] GenerateTiles(Vector2 centerPos, ref Tile[,] tiles, ref List<int[]> enemySpawner) {
+        private static Tile[,] GenerateTiles(Vector2 centerPos, ref Tile[,] tiles, ref List<int[]> enemySpawner, ref int roomIndex) {
             for (int x = 0; x < m_GridSize.x; x++) {
                 for (int y = 0; y < m_GridSize.y; y++) {
 
                     Vector2 localPos = new Vector2(x, y);
-                    (bool isPrefabArea, bool isEnemySpawner) = GiveType(localPos);
+                    (bool isPrefabArea, bool isEnemySpawner) = GiveType(localPos, ref roomIndex);
 
                     tiles[x, y] = new Tile() {
                         isPrefabArea = isPrefabArea,
@@ -85,9 +90,13 @@ namespace Generation.Map {
             return tiles;
         }
 
-        private static (bool, bool) GiveType(Vector2 localPos) {
+        private static (bool, bool) GiveType(Vector2 localPos, ref int roomIndex) {
             bool isSpawn = false;
             bool isEnemySpawner = false;
+
+            // Ensuring the first room has some limited spawn space near the elevator
+            // Weirdly it seems that the grid goes from right to left instead of left to right
+            if (roomIndex.Equals(0) && localPos.x > LevelController.controller.gridSize.y - LevelController.controller.starterSafeZone) { return (false, false); }
 
             foreach (var section in m_sections) {
                 isSpawn = (localPos.x < section[1].x && localPos.x >= section[0].x) &&
@@ -103,7 +112,7 @@ namespace Generation.Map {
         }
 
         private static Vector2[][] SetupSections(float x, float y) {
-            int padding = LevelController.controller.m_padding;
+            int padding = LevelController.controller.padding;
             return new Vector2[4][] {
                 new Vector2[2] { new Vector2(padding, padding), new Vector2((x/2) - padding, (y/2) - padding) },
                 new Vector2[2] { new Vector2((x/2) + padding, padding), new Vector2(x- padding, (y/2 - padding)) },

@@ -1,5 +1,7 @@
 using Events;
 using System.Collections;
+using Camera;
+using Player;
 using UnityEngine;
 
 namespace Weapons {
@@ -35,6 +37,9 @@ namespace Weapons {
             
             if (hitEnemey) {
                 Instantiate(impactEnemyParticle, transform.position, Quaternion.identity);
+                if (Vector3.Distance(transform.position, PlayerController.player.transform.position) < 10) {
+                    CameraFeatures.mainFeature.ShakeCamera(3, 0.7f);
+                }
                 // Do enemy hit stuffs
             } else {
                 Instantiate(impactParticle, transform.position, Quaternion.identity);
@@ -43,6 +48,9 @@ namespace Weapons {
             EventsHandler eHandler = collider.gameObject.GetComponent<EventsHandler>();
             if (eHandler != null) {
                 eHandler.OnDamage.Invoke(stats.bulletDamage);
+                if (isEnemyGun && Vector3.Distance(transform.position, PlayerController.player.transform.position) < 10) {
+                    CameraFeatures.mainFeature.ShakeCamera(1, 0.3f);
+                }
             }
             
             Destroy(gameObject);

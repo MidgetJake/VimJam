@@ -11,6 +11,7 @@ namespace Player {
     }
     
     public class PlayerController : MonoBehaviour {
+        public static PlayerController player;
         public CharacterState state = CharacterState.Default;
         public BaseStats playerStats;
         public Transform weaponFollowPoint;
@@ -29,6 +30,7 @@ namespace Player {
 
         #region Unity Events
         private void Start() {
+            player = this;
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 

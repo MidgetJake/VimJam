@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe990e880f1b4194f8153255625ab2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 3
   movementSpeed: 5
   dodgeSpeed: 15
   dodgeTime: 0.33

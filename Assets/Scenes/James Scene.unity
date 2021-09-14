@@ -1029,6 +1029,7 @@ MonoBehaviour:
   m_Bosses:
   - {fileID: 8020914385343389557, guid: 61400ff4834bc6443a078bcd61503630, type: 3}
   m_StartingWall: {fileID: 5176006791299375962, guid: 081624599decd3b4f84b11d8384c0fc5, type: 3}
+  m_FinalWall: {fileID: 5176006791299375962, guid: 9f2fc126752588641b7ef08184b6649b, type: 3}
   m_FinishLine: {fileID: 7633210666103277959, guid: 7f589ea5aa09bd44b9a473104fb770a3, type: 3}
 --- !u!114 &1555852313
 MonoBehaviour:
@@ -1052,11 +1053,16 @@ MonoBehaviour:
     regenLevel: 
     nextLevel: 
   numberOfRooms: 3
-  enemiesPerRoom: 1
-  m_padding: 2
+  enemiesMultiply: 3
+  setEnemiesCount: 0
+  maxEnemiesPerRoom: 15
+  maxEnemiesFinalRoom: 15
+  starterSafeZone: 8
+  padding: 2
+  currentRoom: 0
   gridSize: {x: 16, y: 16}
   currentLevel: 0
-  m_EnableTileView: 0
+  m_EnableTileView: 1
 --- !u!4 &1555852314
 Transform:
   m_ObjectHideFlags: 0
@@ -1289,7 +1295,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 2.2359881, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

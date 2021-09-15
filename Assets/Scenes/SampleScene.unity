@@ -1632,6 +1632,51 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6457686282957575376, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
   m_PrefabInstance: {fileID: 6457686283872120239}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1643960038
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643960037}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c63722d7fc23fdf48a6274ff3ea8f3ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &1643960042
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643960037}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1.6}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 1.5}
+  m_EdgeRadius: 0
 --- !u!1 &1676600594
 GameObject:
   m_ObjectHideFlags: 0
@@ -1935,7 +1980,7 @@ MonoBehaviour:
   - {fileID: 1048156020}
   borderVelocity: 3
   intensityScale: 0.5
-  testView: {fileID: 2100191230}
+  testZoom: {fileID: 2100191230}
 --- !u!1 &1841269698
 GameObject:
   m_ObjectHideFlags: 0
@@ -2260,6 +2305,14 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6457686282957575209, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457686282957575209, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457686282957575209, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2299,6 +2352,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6457686282957575210, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3374016855609083382, guid: f852195c537c26d47afa3cca19b486d0, type: 3}
+    - target: {fileID: 6457686282957575210, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457686282957575213, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1643960038}
     - target: {fileID: 6457686282957575213, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
       propertyPath: currentWeapon
       value: 
@@ -2315,7 +2380,16 @@ PrefabInstance:
       propertyPath: gameCamera
       value: 
       objectReference: {fileID: 1687258584}
-    m_RemovedComponents: []
+    - target: {fileID: 6457686283444288048, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.11999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6457686283444288048, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6457686282957575211, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
 --- !u!1001 &6698369218288310678
 PrefabInstance:

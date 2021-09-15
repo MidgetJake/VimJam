@@ -1,3 +1,4 @@
+using Camera;
 using Items;
 using UI;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Player {
     }
     
     public class PlayerController : MonoBehaviour {
+        public static PlayerController player;
         public CharacterState state = CharacterState.Default;
         public BaseStats playerStats;
         public Transform weaponFollowPoint;
@@ -18,6 +20,7 @@ namespace Player {
         public BaseWeapon currentWeapon;
         public BaseWeapon defaultWeapon;
         public BaseWeapon extraWeapon;
+        public Animator animator;
         
         private bool m_HoldingDefault = true;
         private Vector2 m_MovementVector;
@@ -26,9 +29,12 @@ namespace Player {
         private Vector2 m_DodgeVector;
         private bool m_WeaponLeft = true;
         private BaseInteractable m_CurrentInteractable;
+        private static readonly int m_MoveDir = Animator.StringToHash("WalkDir");
+        private static readonly int m_Roll = Animator.StringToHash("Rolling");
 
         #region Unity Events
         private void Start() {
+            player = this;
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
@@ -43,7 +49,11 @@ namespace Player {
             switch (newState) {
                 case CharacterState.Dead:
                 case CharacterState.Default:
+                    state = newState;
+                    break;
                 case CharacterState.Dodging:
+                    animator.SetBool(m_Roll, true);
+                    CameraFeatures.mainFeature.ZoomIn(1.08f, 0.5f, true);
                     state = newState;
                     break;
             }
@@ -52,6 +62,17 @@ namespace Player {
         private void OnLeaveState(CharacterState oldState, CharacterState newState) {
             // In case we want to do something when a state is left
             // Like movement speed on ending a dodge, etc
+            switch (oldState) {
+                case CharacterState.Dodging:
+                    animator.SetBool(m_Roll, false);
+                    break;
+                case CharacterState.Default:
+                    break;
+                case CharacterState.Dead:
+                    break;
+                default:
+                    break;
+            }
         }
         
         public void SetInputs(ref CharacterInputs inputs) {
@@ -60,6 +81,17 @@ namespace Player {
             }
 
             m_MovementVector = inputs.moveAxis;
+
+            if (inputs.moveAxis.x > 0) {
+                animator.SetInteger(m_MoveDir, 1);
+            } else if (inputs.moveAxis.x < 0) {
+                animator.SetInteger(m_MoveDir, 3);
+            } else if (inputs.moveAxis.y > 0) {
+                animator.SetInteger(m_MoveDir, 2);
+            } else if (inputs.moveAxis.y < 0) {
+                animator.SetInteger(m_MoveDir, 0);
+            }
+
             if (inputs.moveAxis.x > 0 && !m_WeaponLeft) {
                 m_WeaponLeft = true;
                 Vector3 followPoint = weaponFollowPoint.localPosition;

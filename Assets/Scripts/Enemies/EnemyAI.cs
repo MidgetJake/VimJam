@@ -34,6 +34,7 @@ namespace Enemies {
         private bool isShooting = false;
         private NavMeshAgent agent;
         private EventsHandler m_EventHandler;
+        private BaseEnemy m_BaseEnemy;
 
         [SerializeField] private bool m_Debug;
 
@@ -43,9 +44,14 @@ namespace Enemies {
             m_EventHandler = GetComponent<EventsHandler>();
             // Setting agent to correct spawn location
             agent.Warp(transform.position);
+            m_BaseEnemy = GetComponent<BaseEnemy>();
+            
+            // Boss shouldn't be active until all enemies are dead
+            m_BaseEnemy.isActive = !isBoss;
         }
 
         private void Update() {
+            if (!m_BaseEnemy.isActive) { return; }
             if (!isActiveAndEnabled) { return; }
             if (CurrentTarget == null) { return; }
 

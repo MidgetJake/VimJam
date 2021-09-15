@@ -17,8 +17,13 @@ namespace Assets.Scripts.Controller {
 
         [Header("Settings")]
         public int numberOfRooms = 3;
-        public int enemiesPerRoom = 3;
-        public int m_padding = 2;
+        public int enemiesMultiply = 3;
+        public int setEnemiesCount;
+        public int maxEnemiesPerRoom = 15;
+        public int maxEnemiesFinalRoom = 5;
+        public int starterSafeZone = 8;
+        public int padding = 2;
+        public int currentRoom = 0;
         public Vector2 gridSize = new Vector2(16, 16);
 
         public int currentLevel;
@@ -27,6 +32,9 @@ namespace Assets.Scripts.Controller {
         private Transform m_FloorParent;
         private Transform m_WallsParent;
         private Transform m_DeskParent;
+        private Grid m_CurrentRoom;
+        private DoorController m_StartElevator;
+        private bool m_BossTriggered = false;
 
         [Header("Debugging")]
         [SerializeField] private bool m_EnableTileView;
@@ -43,6 +51,8 @@ namespace Assets.Scripts.Controller {
             m_MainParent = new GameObject("Main Parent").transform;
             // Must be 270 for 2d Nav Mesh to work
             m_MainParent.rotation = Quaternion.Euler(270, 0, 0);
+            currentRoom = 0;
+            m_BossTriggered = false;
         }
 
         public void NewLevel() {
@@ -54,12 +64,11 @@ namespace Assets.Scripts.Controller {
             if (seeder.seed.Equals(0) || seeder.useRandom) {
                 RandomManager.GenerateSeed();
                 seeder.seed = RandomManager.Seed;
-            }
-            else { RandomManager.SetSeed(seeder.seed); }
+            } else { RandomManager.SetSeed(seeder.seed); }
 
-            // Destroying all sprite in map
-            //if (m_MainParent != null) { Destroy(m_MainParent.gameObject); }
-            //m_MainParent = new GameObject("Main Parent").transform;
+            // Sorting out enemy spawn count
+            setEnemiesCount = enemiesMultiply * currentLevel;
+            if (setEnemiesCount > maxEnemiesPerRoom) { setEnemiesCount = maxEnemiesPerRoom; }
 
             // Setting up level
             Level.Generate();
@@ -72,17 +81,13 @@ namespace Assets.Scripts.Controller {
             SetupNavMesh();
             SpawnPlayer();
             EnemySpawner.Spawn(ref m_MainParent);
+
+            m_CurrentRoom = Level.rooms[currentRoom];
+
+            m_StartElevator.Unlock();
         }
 
-        private void SetupNavMesh() {
-            //m_MainParent.gameObject.AddComponent<BoxCollider2D>();
-            NavMeshSurface2d nav = m_MainParent.gameObject.AddComponent<NavMeshSurface2d>();
-            nav.collectObjects = CollectObjects2d.Children;
-            nav.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
-            Physics2D.SyncTransforms(); // Applying all transformation for dynamic nav mesh build
-            nav.BuildNavMesh();
-        }
-
+        #region Helpers
         //Helpers
         private void SpawnControl (ref GameObject obj, Vector3 position, Quaternion rotation, Vector2 scale, Transform parent) {
             obj.transform.position = position;
@@ -94,8 +99,17 @@ namespace Assets.Scripts.Controller {
             float randomRotation2 = RandomManager.ItemFromList(new List<int>() { 0, 90, 180, 270 });
             return new Quaternion(0, 0, randomRotation2, 0);
         }
+        #endregion
 
-        // Spawn control
+        #region Generation Setup
+        private void SetupNavMesh() {
+            //m_MainParent.gameObject.AddComponent<BoxCollider2D>();
+            NavMeshSurface2d nav = m_MainParent.gameObject.AddComponent<NavMeshSurface2d>();
+            nav.collectObjects = CollectObjects2d.Children;
+            nav.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+            Physics2D.SyncTransforms(); // Applying all transformation for dynamic nav mesh build
+            nav.BuildNavMesh();
+        }
         private void SetupOfficeDeco() {
             m_DeskParent = new GameObject("Office Deco").transform;
             m_DeskParent.SetParent(m_MainParent);
@@ -117,7 +131,6 @@ namespace Assets.Scripts.Controller {
                 SpawnControl(ref desk, room.centerPos, GetRandomRotation(), new Vector2(4, 4), m_DeskParent);
             }
         }
-
         private void SetupBossDesk(Grid room, ref Transform officeDecoParent) {
             GameObject bossDesk = PrefabController.controller.GetRandomBossDesk();
             Vector2 spawnPos = room.centerPos + new Vector2(gridSize.x / 4, 0);
@@ -142,13 +155,21 @@ namespace Assets.Scripts.Controller {
             // Elevator wall
             GameObject startingWall = PrefabController.controller.GetStartingWall();
             SpawnControl(ref startingWall, Vector2.zero, Quaternion.identity, gridSize, m_WallsParent);
+            m_StartElevator = startingWall.GetComponentInChildren<DoorController>();
 
             Vector2 pos = Vector2.zero - new Vector2((gridSize.x / 2) + (startingWall.GetComponent<SpriteRenderer>().bounds.size.x /2), 0);
             startingWall.transform.position = pos;
-            // Walls for each room
-            foreach (var room in Level.rooms) {
-                GameObject wall = PrefabController.controller.GetRandomWall();
+
+            int roomCount = Level.rooms.Length;
+            for (int index=0; index<roomCount; index++) {
+                Grid room = Level.rooms[index];
+
+                GameObject wall;
+                if (index +1 >= roomCount) { wall = PrefabController.controller.GetFinalWall(); } 
+                else { wall = PrefabController.controller.GetRandomWall(); }
+
                 SpawnControl(ref wall, room.centerPos, Quaternion.identity, gridSize, m_WallsParent);
+                room.doorControl = wall.gameObject.GetComponentInChildren<DoorController>();
             }
         }
         private void SetupFinishLine() {
@@ -162,6 +183,31 @@ namespace Assets.Scripts.Controller {
             Vector2 pos = new Vector2(0 - (gridSize.x / 2) - 1, 0);
             SpawnControl(ref m_Player, pos, Quaternion.identity, m_Player.transform.localScale, null);
         }
+        #endregion
+
+        #region Events
+        public void RecordDeath() {
+            m_CurrentRoom.enemyCount--;
+            if (m_CurrentRoom.enemyCount > 0) { return; }
+
+            if (m_CurrentRoom.isBossRoom && !m_BossTriggered) { TriggerBoss(); return; }
+
+            // Room finished
+            if (m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
+
+            if (m_CurrentRoom.isBossRoom) { return; }
+            currentRoom++;
+            m_CurrentRoom = Level.rooms[currentRoom];
+        }
+
+        private void TriggerBoss() {
+            // CUTSCENE GOES HERE
+
+            // triggers boss to move and attack
+            m_BossTriggered = true;
+            m_CurrentRoom.boss.isActive = true;
+        }
+        #endregion
 
         // Drawing for debugging purposes
         private void OnDrawGizmos() {

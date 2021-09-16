@@ -96,7 +96,9 @@ namespace Generation.Map {
 
             // Ensuring the first room has some limited spawn space near the elevator
             // Weirdly it seems that the grid goes from right to left instead of left to right
-            if (roomIndex.Equals(0) && localPos.x > LevelController.controller.gridSize.y - LevelController.controller.starterSafeZone) { return (false, false); }
+            if (roomIndex.Equals(0) && localPos.x > LevelController.controller.gridSize.y - LevelController.controller.starterSafeZone) { 
+                return (false, false);
+            }
 
             foreach (var section in m_sections) {
                 isSpawn = (localPos.x < section[1].x && localPos.x >= section[0].x) &&

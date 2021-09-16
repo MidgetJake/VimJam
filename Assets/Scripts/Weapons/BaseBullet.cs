@@ -1,3 +1,4 @@
+using Assets.Scripts.Controller;
 using Events;
 using System.Collections;
 using UnityEngine;
@@ -29,9 +30,7 @@ namespace Weapons {
         }
 
         private void OnHit(bool hitEnemey, ref Collider2D collider) {
-            if (hitEnemey && isEnemyGun) {
-                return;
-            }
+            if (hitEnemey && isEnemyGun) { return; }
             
             if (hitEnemey) {
                 Instantiate(impactEnemyParticle, transform.position, Quaternion.identity);
@@ -41,22 +40,31 @@ namespace Weapons {
             }
 
             EventsHandler eHandler = collider.gameObject.GetComponent<EventsHandler>();
-            if (eHandler != null) {
-                eHandler.OnDamage.Invoke(stats.bulletDamage);
-            }
-            
+            if (eHandler != null) { eHandler.OnDamage.Invoke(stats.bulletDamage); }
+
             Destroy(gameObject);
         }
         
-        private void OnTriggerEnter2D(Collider2D collider) {
+        public void OnTriggerEnter2D(Collider2D collider) {
             if (collider.CompareTag("Floor")) { return; }
-            if (!isEnemyGun && collider.CompareTag("Player")) {
-                return;
+            if (!isEnemyGun && collider.CompareTag("Player")) { return; }
+
+            // Play audio
+            switch (collider.tag) {
+                case "Player":
+                    Audio.controller.PlayerDamage(transform.position);
+                    break;
+                case "Enemy":
+                    Audio.controller.EnemyDamage(transform.position);
+                    break;
+                default:
+                    Audio.controller.BulletOnHit(transform.position);
+                    break;
             }
 
             /*if ((isEnemyGun && collider.CompareTag("Player")) || 
                 (!isEnemyGun && collider.CompareTag("Enemy"))) {*/
-                OnHit(collider.CompareTag("Enemy"), ref collider);
+            OnHit(collider.CompareTag("Enemy"), ref collider);
             // }
         }
     }

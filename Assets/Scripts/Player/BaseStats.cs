@@ -1,5 +1,6 @@
 using UnityEngine;
 using Events;
+using Assets.Scripts.Controller;
 
 namespace Player {
     [RequireComponent(typeof(EventsHandler))]
@@ -15,11 +16,11 @@ namespace Player {
         private EventsHandler m_EventsHandler;
         private bool m_IsPlayer = false;
 
-        public void Start() {
-            m_EventsHandler = GetComponent<EventsHandler>();
-        }
+        public void Start() => m_EventsHandler = GetComponent<EventsHandler>();
 
         public virtual void TakeDamage(float damage = 1) {
+            if (m_IsPlayer) { Audio.controller.PlayerDeath(transform.position); }
+
             health -= damage;
             if (health < minMaxHealth.x) { health = minMaxHealth.x; }
             if (health <= minMaxHealth.x) { m_EventsHandler.Death(); }

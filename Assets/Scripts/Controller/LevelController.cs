@@ -2,6 +2,8 @@
 using Generation.Map;
 using Managers;
 using System.Collections.Generic;
+using Player;
+using UI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -38,6 +40,8 @@ namespace Assets.Scripts.Controller {
 
         [Header("Debugging")]
         [SerializeField] private bool m_EnableTileView;
+
+        [SerializeField] public BaseStats bs;
 
         public void Start() {
             controller = this;
@@ -186,12 +190,14 @@ namespace Assets.Scripts.Controller {
         #endregion
 
         #region Events
-        public void RecordDeath() {
+        public void RecordDeath()
+        {
+            bs.Kills();
             m_CurrentRoom.enemyCount--;
             if (m_CurrentRoom.enemyCount > 0) { return; }
 
             if (m_CurrentRoom.isBossRoom && !m_BossTriggered) { TriggerBoss(); return; }
-
+            
             // Room finished
             if (m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
 

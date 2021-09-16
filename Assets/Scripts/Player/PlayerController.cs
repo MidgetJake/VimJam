@@ -22,7 +22,6 @@ namespace Player {
         public BaseWeapon extraWeapon;
         public Animator animator;
         
-        [SerializeField] private HeartContainer hc;
         
         private bool m_HoldingDefault = true;
         private Vector2 m_MovementVector;
@@ -38,7 +37,6 @@ namespace Player {
         private void Start() {
             player = this;
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
-            hc.UpdateHealth(playerStats.currHealth, playerStats.maxHealth);
         }
 
         private void FixedUpdate() {
@@ -173,26 +171,6 @@ namespace Player {
             }
             
             m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement);
-        }
-        
-        //odinpart
-
-        public void DamagePlayer(int dmg)
-        {
-            if (playerStats.currHealth > 0)
-            {
-                playerStats.currHealth -= dmg;
-                hc.UpdateHealth(playerStats.currHealth, playerStats.maxHealth);
-            }
-        }
-
-        public void HealPlayer(int dmg)
-        {
-            if (playerStats.currHealth < playerStats.maxHealth)
-            {
-                playerStats.currHealth += dmg;
-                hc.UpdateHealth(playerStats.currHealth, playerStats.maxHealth);
-            }
         }
     }
 }

@@ -9,11 +9,6 @@ namespace UI
         public GameObject heartSprite;
         public GameObject brokenHeartSprite;
 
-        private void Start()
-        {
-            // StartCoroutine(TestInFive());
-        }
-
         public void UpdateHealth(int currHealth, int maxHealth)
         {
             foreach (Transform child in transform)
@@ -34,10 +29,5 @@ namespace UI
             }
 
         }
-        
-        /*private IEnumerator TestInFive() {
-            yield return new WaitForSecondsRealtime(5);
-            UpdateHealth(5, 3);
-        }*/
     }
 }

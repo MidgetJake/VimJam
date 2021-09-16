@@ -10,7 +10,7 @@ namespace UI
         {
             killCounter = GetComponent<TextMeshProUGUI>();
         }
-        void SetKillCounter(int kills)
+        public void SetKillCounter(int kills)
         {
             killCounter.text = "Kills:" + kills.ToString();
         }

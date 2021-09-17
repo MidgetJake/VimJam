@@ -7,7 +7,7 @@ namespace UI
     public class TimeCounter : MonoBehaviour
     {
         private TextMeshProUGUI timeCounter; 
-        private float secondsCount; 
+        
         private int minuteCount;
         
         
@@ -17,18 +17,11 @@ namespace UI
             timeCounter = GetComponent<TextMeshProUGUI>();
         }
 
-        private void Update()
+        public void UpdateTimer(int secondsCount)
         {
-            UpdateTimer();
-        }
-
-        public void UpdateTimer()
-        {
-            secondsCount += Time.deltaTime;
             timeCounter.text = minuteCount +"m:"+(int)secondsCount + "s";
             if(secondsCount >= 60){
                 minuteCount++;
-                secondsCount = 0;
             }    
         }
         

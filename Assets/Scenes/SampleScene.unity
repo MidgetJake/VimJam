@@ -279,10 +279,10 @@ Transform:
   m_LocalPosition: {x: -0.34141618, y: 0.5639153, z: -12.5214}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1814760245}
+  - {fileID: 1628503079}
   - {fileID: 8427619368761020970}
   - {fileID: 3832099958116145562}
-  - {fileID: 1628503079}
+  - {fileID: 1814760245}
   - {fileID: 3432610798292648225}
   - {fileID: 1925658244}
   - {fileID: 179056129}
@@ -2185,7 +2185,7 @@ Transform:
   m_LocalScale: {x: 4, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 104836078}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1643960037 stripped
 GameObject:
@@ -2458,7 +2458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000035762787, y: 0, z: -9.5}
+  m_LocalPosition: {x: -0.00000059604645, y: 0, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2809,7 +2809,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.08008, y: 1}
+    m_SensorSize: {x: 1.837535, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2826,7 +2826,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874924826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000035762787, y: 0, z: -9.5}
+  m_LocalPosition: {x: -0.00000059604645, y: 0, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 690070791}
@@ -3084,8 +3084,8 @@ MonoBehaviour:
   currentActive: 0
   tempo:
     startMenuTempo: 1
-    mainTempo: 0.95
-    bossTempo: 1.025
+    mainTempo: 0.98
+    bossTempo: 1.02
   music:
     intro: {fileID: 8300000, guid: d775a167ab4100042887e51ddbfbec4b, type: 3}
     musicBreak:
@@ -3159,8 +3159,12 @@ MonoBehaviour:
   - {fileID: 1962192291417221684, guid: 82467934ab9db374e9e662da5ae79458, type: 3}
   - {fileID: 7878297411413671144, guid: 41201a182861d2743b6cf63c8dbe81f7, type: 3}
   - {fileID: 4863789926518935430, guid: 080e97124259ecb4b8b23f77d3ba1148, type: 3}
+  - {fileID: 1962192291417221684, guid: dc081ab578971dc44b4c01f13b297711, type: 3}
+  - {fileID: 7878297411413671144, guid: e592e3477eaffcb418f12b9bdbe8b078, type: 3}
+  - {fileID: 4863789926518935430, guid: de86611551dcc00489e5c0f5a50ac243, type: 3}
   m_BossDesk:
   - {fileID: 1962192291417221684, guid: d7bc666a3e179a94f804c1653ce482dd, type: 3}
+  - {fileID: 1962192291417221684, guid: e1d9be25f61c21745825007071abc121, type: 3}
   m_Walls:
   - {fileID: 5176006791299375962, guid: 834cee9abb171c24fbb4f6573d7795c8, type: 3}
   - {fileID: 5176006791299375962, guid: fbfed303d6fa959468a110706d0dc608, type: 3}
@@ -3170,9 +3174,10 @@ MonoBehaviour:
   - {fileID: 7038614007257710640, guid: 10c4e0d9b5d011042826fa60fa9c2259, type: 3}
   - {fileID: 7038614007257710640, guid: fa29680bebdbcf6418c13f3bf17b5b8a, type: 3}
   m_Enemies:
-  - {fileID: 8020914385343389557, guid: 8c080e6b7339beb468897c3c969b4941, type: 3}
+  - {fileID: 8020914385343389557, guid: c44aa3d79381d5e42a07af7c3a0cd951, type: 3}
+  - {fileID: 8020914385343389557, guid: 0379f8c63f2bcef4f8979792fb315071, type: 3}
   m_Bosses:
-  - {fileID: 8020914385343389557, guid: 61400ff4834bc6443a078bcd61503630, type: 3}
+  - {fileID: 8020914385343389557, guid: 08f80eaa252f2ce4faa9183c9bc75914, type: 3}
   m_StartingWall: {fileID: 5176006791299375962, guid: 081624599decd3b4f84b11d8384c0fc5, type: 3}
   m_FinalWall: {fileID: 5176006791299375962, guid: 9f2fc126752588641b7ef08184b6649b, type: 3}
   m_FinishLine: {fileID: 7633210666103277959, guid: 7f589ea5aa09bd44b9a473104fb770a3, type: 3}
@@ -3245,16 +3250,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parent: {fileID: 0}
   availableUpgrades:
-  - {fileID: 3432610798030629506, guid: 4aace9ea4498a1941aac98a9c073acfe, type: 3}
-  - {fileID: 9168727880184003136, guid: ba445f1d44926634caf39cddd68fa1c1, type: 3}
-  - {fileID: 7155421851080062951, guid: 0af851d65c71746409c5fd13f24f34cd, type: 3}
-  - {fileID: 5392012816330633506, guid: a61efdd598a9e7748af35fb343863436, type: 3}
-  - {fileID: 2316761979309446124, guid: 9fd45f0046c4cd141809392b0e27051f, type: 3}
-  - {fileID: 2292815400639088509, guid: 023803ff202109942b6f5bc63652dfc9, type: 3}
-  - {fileID: 7600428232374405161, guid: 8f28eebfcef09b945a8932affe668ed4, type: 3}
-  - {fileID: 8463729356234020319, guid: 2ead3f10428089e4cb188c20605eb014, type: 3}
-  - {fileID: 7483211177481311105, guid: d304f1a4911eb8a48b747d18074507df, type: 3}
   - {fileID: 8250796096797778907, guid: 5e11c23788c494549b552de9fbc09aa0, type: 3}
+  - {fileID: 3988658617749345225, guid: 4aace9ea4498a1941aac98a9c073acfe, type: 3}
+  - {fileID: 1486324339926189065, guid: ba445f1d44926634caf39cddd68fa1c1, type: 3}
+  - {fileID: 173467070689229012, guid: 0af851d65c71746409c5fd13f24f34cd, type: 3}
+  - {fileID: 932737522272829013, guid: a61efdd598a9e7748af35fb343863436, type: 3}
+  - {fileID: 7847782932893370153, guid: 9fd45f0046c4cd141809392b0e27051f, type: 3}
+  - {fileID: 1038681365184052541, guid: 023803ff202109942b6f5bc63652dfc9, type: 3}
+  - {fileID: 7472510950376055222, guid: 8f28eebfcef09b945a8932affe668ed4, type: 3}
+  - {fileID: 3577478368759977272, guid: 2ead3f10428089e4cb188c20605eb014, type: 3}
+  - {fileID: 7483211177481311105, guid: d304f1a4911eb8a48b747d18074507df, type: 3}
   availableWeapons:
   - {fileID: 3369509058462420400, guid: 1ac1ce3ed0b6eae4a9fc8fccc37c780c, type: 3}
   - {fileID: 3832099958097329985, guid: b4c30b2e182749c4f88fff47dc3fcac3, type: 3}

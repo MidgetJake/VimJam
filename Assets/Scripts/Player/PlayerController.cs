@@ -1,3 +1,4 @@
+using Assets.Scripts.Controller;
 using Camera;
 using Items;
 using UI;
@@ -54,7 +55,6 @@ namespace Player {
                     break;
                 case CharacterState.Dodging:
                     animator.SetBool(m_Roll, true);
-                    CameraFeatures.mainFeature.ZoomIn(1.08f, 0.5f, true);
                 	Audio.controller.Dodge(transform.position);
                     state = newState;
                     break;

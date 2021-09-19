@@ -23,6 +23,8 @@ namespace Assets.Scripts.Controller {
         public int maxEnemiesFinalRoom = 5;
         public int maxEnemyHealth = 15;
         public int enemyHealthMultiplier = 3;
+        public int baseEnemyHealth = 3;
+        public int baseBossHealth = 18;
         public int maxBossHeath = 20;
         public int bossHealthMultiplier = 3;
         public int starterSafeZone = 8;

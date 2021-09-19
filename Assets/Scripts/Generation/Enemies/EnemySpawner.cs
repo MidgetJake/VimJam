@@ -46,7 +46,8 @@ namespace Assets.Scripts.Generation.Enemies {
             LevelController control = LevelController.controller;
             int multiplier = isBoss ? control.bossHealthMultiplier : control.enemiesMultiplier;
             int max = isBoss ? control.maxBossHeath : control.maxEnemyHealth;
-            float health = multiplier * control.currentLevel;
+            int baseHealth = isBoss ? control.baseBossHealth : control.baseEnemyHealth;
+            float health = baseHealth + multiplier * (control.currentLevel - 1);
             if (health > max) { health = max; }
             return health;
         }

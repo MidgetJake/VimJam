@@ -49,6 +49,7 @@ namespace Assets.Scripts.Controller {
         private float m_TargetPitch;
         private bool m_TransitionVolume;
         private bool m_TransitionPitch;
+        private float m_TransitionTime = 0; 
 
         public void Start() {
             controller = this;
@@ -58,14 +59,22 @@ namespace Assets.Scripts.Controller {
         }
 
         public void Update() {
+            if (m_TransitionPitch || m_TransitionVolume) {
+                m_TransitionTime += Time.deltaTime;
+            }
+
             if (m_TransitionVolume) {
-                m_AudioSource.volume = Mathf.Lerp(m_AudioSource.volume, m_TargetVolume, .01f);
-                if (m_AudioSource.volume == m_TargetVolume) { m_TransitionVolume = false; }
+                m_AudioSource.volume = Mathf.Lerp(m_AudioSource.volume, m_TargetVolume, .01f - m_TransitionTime);
+                if ((m_AudioSource.volume - m_TargetVolume) <= 0.001f) { m_TransitionVolume = false; }
             }
 
             if (m_TransitionPitch) {
-                m_AudioSource.pitch = Mathf.Lerp(m_AudioSource.pitch, m_TargetPitch, .01f);
+                m_AudioSource.pitch = Mathf.Lerp(m_AudioSource.pitch, m_TargetPitch, .01f - m_TransitionTime);
                 if (m_AudioSource.pitch == m_TargetPitch) { m_TransitionPitch = false; }
+            }
+            
+            if ((m_TransitionPitch || m_TransitionVolume) && m_TransitionTime >= .01f) {
+                m_TransitionTime = 0;
             }
         }
 

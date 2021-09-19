@@ -36,11 +36,13 @@ namespace Upgrades {
                 
                 switch (upgradeAttributes[i]) {
                     case UpgradeAttribute.Health:
-                        player.playerStats.IncreaseMaxHealth((int) value);
+                        player.playerStats.IncreaseMaxHealth((int) values[i]);
                         break;
                     case UpgradeAttribute.Stamina:
                         value = player.playerStats.maxStamina;
-                        player.playerStats.maxStamina = (int) DoMethod(methods[i], value, values[i]);
+                        int newStamina = (int) DoMethod(methods[i], value, values[i]);
+                        int change = newStamina - player.playerStats.maxStamina;
+                        player.playerStats.IncreaseMaxStamina(change);
                         break;
                     case UpgradeAttribute.WeaponDamage:
                         value = player.currentWeapon.weaponStats.bulletStats.bulletDamage;

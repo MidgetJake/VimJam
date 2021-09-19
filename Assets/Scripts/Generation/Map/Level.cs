@@ -2,6 +2,7 @@ using Assets.Scripts.Controller;
 using Enemies;
 using Managers;
 using System.Collections.Generic;
+using Controller;
 using UnityEngine;
 
 public class Grid {

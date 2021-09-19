@@ -26,15 +26,17 @@ namespace Controller {
             main = this;
         }
         
-        public (GameObject, DropType) GetLoot() {
-            if (RandomManager.GetFloat() < healthChance) {
-                return (healItem.gameObject, DropType.Health);
+        public (GameObject, DropType) GetLoot(bool skipPickups = false) {
+            if (!skipPickups) {
+                if (RandomManager.GetFloat() < healthChance) {
+                    return (healItem.gameObject, DropType.Health);
+                }
+
+                if (RandomManager.GetFloat() < ammoChance) {
+                    return (ammoItem.gameObject, DropType.Ammo);
+                }
             }
-            
-            if (RandomManager.GetFloat() < ammoChance) {
-                return (ammoItem.gameObject, DropType.Ammo);
-            }
-            
+
             if (RandomManager.GetFloat() > upgradeChance) {
                 return (GetWeapon().gameObject, DropType.Weapon);
             } else {

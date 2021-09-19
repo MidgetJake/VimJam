@@ -26,6 +26,8 @@ namespace Upgrades {
                     player.currentWeapon.currAmmo = player.currentWeapon.maxAmmo;
                 }
             }
+            
+            Destroy(gameObject);
         }
     }
 }

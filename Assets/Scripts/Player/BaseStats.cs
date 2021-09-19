@@ -72,10 +72,19 @@ namespace Player {
         }
 
         public virtual void IncreaseMaxHealth(int modifier) {
+            Debug.Log(modifier);
             health += modifier;
             minMaxHealth.y += modifier;
             if (isPlayer) {
                 hc.UpdateHealth((int) health, (int) minMaxHealth.y);
+            }
+        }
+
+        public virtual void IncreaseMaxStamina(int modifier) {
+            maxStamina += modifier;
+            currStamina += modifier;
+            if (isPlayer) {
+                m_StaminaController.UpdateStaminaBar(currStamina, maxStamina);
             }
         }
 

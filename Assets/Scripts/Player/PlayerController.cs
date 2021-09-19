@@ -22,6 +22,7 @@ namespace Player {
         public BaseWeapon extraWeapon;
         public Animator animator;
         
+        
         private bool m_HoldingDefault = true;
         private Vector2 m_MovementVector;
         private Rigidbody2D m_Rigidbody2D;

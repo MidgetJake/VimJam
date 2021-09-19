@@ -1,7 +1,10 @@
-﻿using Assets.Scripts.Generation.Enemies;
+﻿using System;
+using Assets.Scripts.Generation.Enemies;
 using Generation.Map;
 using Managers;
 using System.Collections.Generic;
+using Player;
+using UI;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,6 +27,7 @@ namespace Assets.Scripts.Controller {
         public int starterSafeZone = 8;
         public int padding = 2;
         public int currentRoom = 0;
+        private float secondsCount;
         public Vector2 gridSize = new Vector2(16, 16);
 
         public int currentLevel;
@@ -39,9 +43,22 @@ namespace Assets.Scripts.Controller {
         [Header("Debugging")]
         [SerializeField] private bool m_EnableTileView;
 
+        [SerializeField] public TimeCounter tc;
+        [SerializeField] public BaseStats bs;
+
         public void Start() {
             controller = this;
             NewLevel(); // temp
+        }
+
+        public void Update()
+        {
+            secondsCount += Time.deltaTime;
+            tc.UpdateTimer((int)secondsCount);
+            if(secondsCount >= 60){
+                secondsCount = 0;
+            }    
+
         }
 
         public void TriggerRegenLevel() => NewLevel();
@@ -186,12 +203,14 @@ namespace Assets.Scripts.Controller {
         #endregion
 
         #region Events
-        public void RecordDeath() {
+        public void RecordDeath()
+        {
+            bs.Kills();
             m_CurrentRoom.enemyCount--;
             if (m_CurrentRoom.enemyCount > 0) { return; }
 
             if (m_CurrentRoom.isBossRoom && !m_BossTriggered) { TriggerBoss(); return; }
-
+            
             // Room finished
             if (m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
 

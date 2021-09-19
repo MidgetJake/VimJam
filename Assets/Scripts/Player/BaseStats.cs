@@ -15,6 +15,9 @@ namespace Player {
         public float staminaRegenRate = .33f;
         public float staminaRegenTime = 0;
 
+        [SerializeField] private HeartContainer hc;
+        [SerializeField] private KillCounter cc;
+
         private EventsHandler m_EventsHandler;
         public bool isPlayer = false;
         [SerializeField] private PlayerController m_PlayerController;
@@ -41,6 +44,7 @@ namespace Player {
             health -= damage;
             if (health < minMaxHealth.x) { health = minMaxHealth.x; }
             if (health <= minMaxHealth.x) { m_EventsHandler.Death(); }
+            hc.UpdateHealth((int)health, (int)minMaxHealth.y);
 
             // TODO - PLEASE HEALTH BAR UPDATE (SUBTRACT HERE)
         }
@@ -48,6 +52,7 @@ namespace Player {
         public virtual void Heal(float heal = 1) {
             health += heal;
             if (health > minMaxHealth.y) { health = minMaxHealth.y; }
+            hc.UpdateHealth((int)health, (int)minMaxHealth.y);
 
             // TODO - PLEASE HEALTH BAR UPDATE (ADDING HEALTH)
         }
@@ -55,6 +60,12 @@ namespace Player {
         public virtual void Death() {
             Debug.Log("Oh... yeah... you're dead");
             Audio.controller.PlayerDeath(transform.position);
+        }
+        
+        public virtual void Kills() {
+            kills++;
+            cc.SetKillCounter(kills);
+
         }
     }
 }

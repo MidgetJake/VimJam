@@ -7,10 +7,14 @@ namespace Weapons {
     public class WeaponDrop : BaseInteractable {
         public BaseWeapon weapon;
 
+        [SerializeField] private Sprite m_DefaultWeaponIcon;
+        [SerializeField] private SpriteRenderer m_Renderer;
+
         public void SetWeapon(BaseWeapon newWeapon) {
             weapon = newWeapon;
             title = newWeapon.title;
             actionDesc = newWeapon.description;
+            m_Renderer.sprite = newWeapon.icon ?? m_DefaultWeaponIcon;
         }
 
         public override void Interact(PlayerController player) {

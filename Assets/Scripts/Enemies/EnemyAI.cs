@@ -55,6 +55,8 @@ namespace Enemies {
             if (!isActiveAndEnabled) { return; }
             if (CurrentTarget == null) { return; }
 
+            LookAt();
+
             // Move closer if not close enough
             if (Vector2.Distance(transform.position, CurrentTarget.position) > minDistanceFromPlayer) { 
                 if (canMove) { MoveToPlayer(); } 
@@ -65,6 +67,12 @@ namespace Enemies {
             
             if (!canShootWhileMoving && isMoving) { return; }
             if (!isShooting) { StartCoroutine(Shoot()); }
+        }
+
+        private void LookAt() {
+            Vector3 dir = CurrentTarget.position - transform.position;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
 
         private void MoveToPlayer() {

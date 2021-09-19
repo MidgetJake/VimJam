@@ -22,9 +22,7 @@ namespace Controller {
         public float healthChance = .3f;
         public float ammoChance = .4f;
 
-        private void Start() {
-            main = this;
-        }
+        public void Start() => main = this;
         
         public (GameObject, DropType) GetLoot(bool skipPickups = false) {
             if (!skipPickups) {

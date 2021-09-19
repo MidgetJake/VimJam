@@ -2,6 +2,7 @@
 using Enemies;
 using Generation.Map;
 using Managers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Generation.Enemies {
@@ -13,7 +14,6 @@ namespace Assets.Scripts.Generation.Enemies {
             m_EnemyParent.SetParent(mainParent);
 
             foreach (var room in Level.rooms) {
-
                 int enemyCount = LevelController.controller.setEnemiesCount;
                 if (room.isBossRoom && LevelController.controller.setEnemiesCount > LevelController.controller.maxEnemiesFinalRoom) {
                     enemyCount = LevelController.controller.maxEnemiesFinalRoom;
@@ -21,15 +21,20 @@ namespace Assets.Scripts.Generation.Enemies {
 
                 // Plussing boss as enemy for wall detection
                 room.enemyCount = enemyCount;
+                room.activeEnemies = new List<GameObject>();
 
-                int[] randomTile;
+                int[] randomTile; 
+                float health;
                 for (int count=0; count<enemyCount; count++) {
                     GameObject enemy = PrefabController.controller.GetRandomEnemy();
                     randomTile = RandomManager.ItemFromList(room.enemySpawners);
                     enemy.transform.SetParent(m_EnemyParent);
                     enemy.transform.position = room.Tiles[randomTile[0], randomTile[1]].position;
                     BaseEnemy baseEnemy = enemy.GetComponent<BaseEnemy>();
-                    baseEnemy.health = SetHealth();
+                    health = SetHealth();
+                    baseEnemy.health = health;
+                    baseEnemy.minMaxHealth = new Vector2(0, health);
+                    room.activeEnemies.Add(enemy);
                 }
 
                 if (!room.isBossRoom) { continue; }
@@ -38,7 +43,9 @@ namespace Assets.Scripts.Generation.Enemies {
                 Vector2 spawnPos = room.centerPos + new Vector2(LevelController.controller.gridSize.x / 3, 0);
                 boss.transform.position = spawnPos;
                 room.boss = boss.GetComponent<BaseEnemy>();
-                room.boss.health = SetHealth(true);
+                health = SetHealth(true);
+                room.boss.health = health;
+                room.boss.minMaxHealth = new Vector2(0, health);
             }
         }
 

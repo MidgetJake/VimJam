@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Uzi
   description: Brrrrrrrrrrrrrrrrrrrrrrrrr
+  icon: {fileID: 21300000, guid: 49c42bc6387ec064788a9ceccfcf4f42, type: 3}
   followTransform: {fileID: 0}
   followSpeed: 0.35
   firePoint: {fileID: 0}
@@ -112,6 +113,7 @@ MonoBehaviour:
       bulletSpeed: 18
       bulletSize: 1
       lifetime: 0.33
+      passThroughEnemies: 0
   isDefault: 0
   maxAmmo: 100
   currAmmo: 100

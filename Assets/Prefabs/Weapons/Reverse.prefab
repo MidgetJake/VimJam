@@ -98,6 +98,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Double Trouble
   description: Don't let them sneak up from behind
+  icon: {fileID: 21300000, guid: a2a440766b22c714084f0f5b6f14a2cc, type: 3}
   followTransform: {fileID: 0}
   followSpeed: 0.35
   firePoint: {fileID: 0}
@@ -114,6 +115,7 @@ MonoBehaviour:
       bulletSpeed: 5
       bulletSize: 1
       lifetime: 1
+      passThroughEnemies: 0
   isDefault: 0
   maxAmmo: 100
   currAmmo: 100

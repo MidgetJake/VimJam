@@ -55,7 +55,7 @@ namespace Enemies {
         public override void Death() {
             enabled = false;
             m_AI.enabled = false;
-            LevelController.controller.RecordDeath();
+            LevelController.controller.RecordDeath(gameObject, m_AI.isBoss);
             GetComponent<Loot>().Drop();
             main.OnKill(gameObject);
             foreach (BaseInteractable interactable in guaranteedDrops) {

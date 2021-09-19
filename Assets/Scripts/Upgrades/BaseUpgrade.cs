@@ -1,8 +1,11 @@
 using System;
 using Assets.Scripts.Controller;
+using System.Collections;
+using Assets.Scripts.Controller;
 using Items;
 using Player;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 namespace Upgrades {
     public enum UpgradeAttribute {
@@ -28,6 +31,15 @@ namespace Upgrades {
         public Method[] methods;
         public float[] values;
         public string description;
+
+        private Light2D m_Light;
+        private float m_TransitionTime;
+        public float m_TargetIntensity;
+        private Vector2 m_MinMaxIntensity = new Vector2(0, 2.25f);
+
+        public void Start() {
+            m_Light = GetComponent<Light2D>();
+        }
 
         // This method is nasty. But I don't care enough to do another way
         private void OnInteract(PlayerController player) {

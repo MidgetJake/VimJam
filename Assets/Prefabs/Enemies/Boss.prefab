@@ -96,6 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840ddec8c14d4b479523a432eeb367d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: 
+  description: 
+  icon: {fileID: 0}
   followTransform: {fileID: 3083120284794108747}
   followSpeed: 0.35
   firePoint: {fileID: 8020914385343389553}
@@ -110,6 +113,7 @@ MonoBehaviour:
       bulletSpeed: 10
       bulletSize: 1
       lifetime: 5
+      passThroughEnemies: 0
   isDefault: 1
   maxAmmo: 100
   currAmmo: 100
@@ -323,8 +327,9 @@ MonoBehaviour:
   isBoss: 1
   minDistanceFromPlayer: 2
   m_DetectionRange: 10
-  m_DetectionRate: 1
-  m_TimeUntilForget: 2
+  m_DetectionRate: 0.5
+  canForget: 0
+  m_TimeUntilForget: 5
   m_ShootRate: 0.2
   CurrentTarget: {fileID: 0}
   m_Debug: 0
@@ -487,6 +492,7 @@ MonoBehaviour:
         bulletSpeed: 10
         bulletSize: 2
         lifetime: 10
+        passThroughEnemies: 0
   - phase: 1
     attacks:
     - fireRate: 2
@@ -504,6 +510,7 @@ MonoBehaviour:
         bulletSpeed: 10
         bulletSize: 2
         lifetime: 10
+        passThroughEnemies: 0
   - phase: 2
     attacks:
     - fireRate: 2
@@ -525,6 +532,7 @@ MonoBehaviour:
         bulletSpeed: 12
         bulletSize: 2
         lifetime: 10
+        passThroughEnemies: 0
 --- !u!114 &3302480774045863095
 MonoBehaviour:
   m_ObjectHideFlags: 0

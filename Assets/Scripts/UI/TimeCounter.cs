@@ -14,7 +14,6 @@ namespace UI
         }
 
         public void UpdateTimer(int secondsCount) {
-            Debug.Log(secondsCount);
             string secs = "" + secondsCount % 60;
             if (secondsCount % 60 < 10) {
                 secs = "0" + secs;

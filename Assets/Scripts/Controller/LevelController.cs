@@ -57,7 +57,6 @@ namespace Assets.Scripts.Controller {
 
         public void Start() {
             controller = this;
-            m_FloorCounter.SetFloorCounter(currentLevel + 1);
             NewLevel(); // temp
         }
 
@@ -86,7 +85,7 @@ namespace Assets.Scripts.Controller {
             ClearLevel();
 
             currentLevel++;
-            m_FloorCounter.SetFloorCounter(currentLevel + 1);
+            m_FloorCounter.SetFloorCounter(currentLevel);
 
             // Sorting out seed
             if (seeder.seed.Equals(0) || seeder.useRandom) {

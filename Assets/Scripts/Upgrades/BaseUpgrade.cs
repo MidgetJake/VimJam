@@ -12,12 +12,15 @@ namespace Upgrades {
         WeaponSpeed,
         WeaponRange,
         BulletSpeed,
+        BulletSize,
         CritChance,
+        PassThrough,
     }
 
     public enum Method {
         Add,
         Multiply,
+        Boolean
     }
     
     public class BaseUpgrade : BaseInteractable {
@@ -35,6 +38,7 @@ namespace Upgrades {
                     case UpgradeAttribute.Health:
                         value = player.playerStats.minMaxHealth.y;
                         player.playerStats.minMaxHealth.y = (int) DoMethod(methods[i], value, values[i]);
+                        player.playerStats.health += (int) value;
                         break;
                     case UpgradeAttribute.Stamina:
                         value = player.playerStats.maxStamina;
@@ -56,6 +60,14 @@ namespace Upgrades {
                     case UpgradeAttribute.BulletSpeed:
                         value = player.currentWeapon.weaponStats.bulletStats.bulletSpeed;
                         player.currentWeapon.weaponStats.bulletStats.bulletSpeed =
+                            DoMethod(methods[i], value, values[i]);
+                        break;
+                    case UpgradeAttribute.PassThrough:
+                        player.currentWeapon.weaponStats.bulletStats.passThroughEnemies = ((int) value == 1);
+                        break;
+                    case UpgradeAttribute.BulletSize:
+                        value = player.currentWeapon.weaponStats.bulletStats.bulletSize;
+                        player.currentWeapon.weaponStats.bulletStats.bulletSize =
                             DoMethod(methods[i], value, values[i]);
                         break;
                     case UpgradeAttribute.CritChance:

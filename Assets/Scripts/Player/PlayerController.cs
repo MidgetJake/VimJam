@@ -22,8 +22,8 @@ namespace Player {
         public BaseWeapon defaultWeapon;
         public BaseWeapon extraWeapon;
         public Animator animator;
+        public bool holdingDefault = true;
         
-        private bool m_HoldingDefault = true;
         private Vector2 m_MovementVector;
         private Rigidbody2D m_Rigidbody2D;
         private float m_DodgingDuration = 0;
@@ -133,7 +133,7 @@ namespace Player {
             weapon.firePoint = defaultWeapon.firePoint;
             weapon.followTransform = defaultWeapon.followTransform;
             
-            if (m_HoldingDefault) {
+            if (holdingDefault) {
                 extraWeapon = weapon;
             } else {
                 currentWeapon = weapon;
@@ -146,12 +146,12 @@ namespace Player {
                 return;
             }
             
-            if (m_HoldingDefault) {
-                m_HoldingDefault = false;
+            if (holdingDefault) {
+                holdingDefault = false;
                 defaultWeapon = currentWeapon;
                 currentWeapon = extraWeapon;
             } else {
-                m_HoldingDefault = true;
+                holdingDefault = true;
                 extraWeapon = currentWeapon;
                 currentWeapon = defaultWeapon;
             }

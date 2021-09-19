@@ -9,8 +9,8 @@ namespace Player {
         public float movementSpeed = 5f;
         public float dodgeSpeed = 15f;
         public float dodgeTime = 0.33f;
-        public float currStamina = 10;
-        public float maxStamina = 10;
+        public int currStamina = 10;
+        public int maxStamina = 10;
         public int kills;
         public Vector2 minMaxHealth = new Vector2(0, 100);
 
@@ -36,6 +36,7 @@ namespace Player {
             if (health > minMaxHealth.y) { health = minMaxHealth.y; }
             hc.UpdateHealth((int)health, (int)minMaxHealth.y);
         }
+        
 
         public virtual void Death() {
             Debug.Log("Oh... yeah... you're dead");

@@ -9,17 +9,34 @@ namespace Player {
         public float movementSpeed = 5f;
         public float dodgeSpeed = 15f;
         public float dodgeTime = 0.33f;
-        public int currStamina = 10;
-        public int maxStamina = 10;
+        public int currStamina = 5;
+        public int maxStamina = 5;
         public Vector2 minMaxHealth = new Vector2(0, 100);
+        public float staminaRegenRate = .33f;
+        public float staminaRegenTime = 0;
 
         private EventsHandler m_EventsHandler;
-        private bool m_IsPlayer = false;
+        public bool isPlayer = false;
+        [SerializeField] private PlayerController m_PlayerController;
 
         public void Start() => m_EventsHandler = GetComponent<EventsHandler>();
 
+        private void Update() {
+            if (currStamina < maxStamina) {
+                staminaRegenTime += Time.deltaTime;
+                if (staminaRegenTime >= staminaRegenRate) {
+                    currStamina++;
+                    staminaRegenTime = 0;
+                }
+            }
+        }
+
         public virtual void TakeDamage(float damage = 1) {
-            if (m_IsPlayer) { Audio.controller.PlayerDeath(transform.position); }
+            if (isPlayer) {
+                if (m_PlayerController.state == CharacterState.Dodging) {
+                    return;
+                }
+            }
 
             health -= damage;
             if (health < minMaxHealth.x) { health = minMaxHealth.x; }
@@ -37,6 +54,7 @@ namespace Player {
 
         public virtual void Death() {
             Debug.Log("Oh... yeah... you're dead");
+            Audio.controller.PlayerDeath(transform.position);
         }
     }
 }

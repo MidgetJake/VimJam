@@ -2,6 +2,7 @@
 using Generation.Map;
 using Managers;
 using System.Collections.Generic;
+using Controller;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -55,6 +56,7 @@ namespace Assets.Scripts.Controller {
         private void ClearLevel() {
             Destroy(m_MainParent.gameObject);
             m_MainParent = new GameObject("Main Parent").transform;
+            LootController.main.parent = m_MainParent;
             // Must be 270 for 2d Nav Mesh to work
             m_MainParent.rotation = Quaternion.Euler(270, 0, 0);
             currentRoom = 0;

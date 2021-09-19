@@ -7,5 +7,6 @@ namespace Weapons {
         public float bulletSpeed;
         public float bulletSize;
         public float lifetime;
+        public bool passThroughEnemies;
     }
 }

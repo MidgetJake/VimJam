@@ -51,8 +51,10 @@ namespace Weapons {
                     CameraFeatures.mainFeature.ShakeCamera(1, 0.3f);
                 }
             }
-            
-            Destroy(gameObject);
+
+            if (!stats.passThroughEnemies) {
+                Destroy(gameObject);
+            }
         }
         
         public void OnTriggerEnter2D(Collider2D collider) {

@@ -6,7 +6,9 @@ using Weapons;
 namespace Controller {
     public enum DropType {
         Weapon,
-        Upgrade
+        Upgrade,
+        Health,
+        Ammo
     }
     
     public class LootController : MonoBehaviour {
@@ -14,11 +16,23 @@ namespace Controller {
         public Transform parent;
         public BaseUpgrade[] availableUpgrades;
         public BaseWeapon[] availableWeapons;
+        public HealItem healItem;
+        public AmmoItem ammoItem;
         public float upgradeChance = .75f;
+        public float healthChance = .3f;
+        public float ammoChance = .4f;
 
         public void Start() => main = this;
         
         public (GameObject, DropType) GetLoot() {
+            if (RandomManager.GetFloat() < healthChance) {
+                return (healItem.gameObject, DropType.Health);
+            }
+            
+            if (RandomManager.GetFloat() < ammoChance) {
+                return (ammoItem.gameObject, DropType.Ammo);
+            }
+            
             if (RandomManager.GetFloat() > upgradeChance) {
                 return (GetWeapon().gameObject, DropType.Weapon);
             } else {

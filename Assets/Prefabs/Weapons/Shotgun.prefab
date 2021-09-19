@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840ddec8c14d4b479523a432eeb367d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title: Shotgun
+  description: It just fires more bullets
   followTransform: {fileID: 0}
   followSpeed: 0.35
   firePoint: {fileID: 0}

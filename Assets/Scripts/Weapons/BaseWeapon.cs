@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Weapons {
     public class BaseWeapon : MonoBehaviour {
+        public string title;
+        public string description;
+        
         public Transform followTransform;
         public float followSpeed = 0.75f;
         public Transform firePoint;

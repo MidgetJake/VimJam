@@ -13,14 +13,19 @@ namespace Assets.Scripts.Enemies {
             }
             
             (GameObject, DropType) loot = LootController.main.GetLoot();
-            
-            if (loot.Item2 == DropType.Weapon) {
-                WeaponDrop item = Instantiate(drop, LootController.main.parent, true);
-                item.weapon = loot.Item1.GetComponent<BaseWeapon>();
-                item.transform.position = transform.position;
-            } else {
-                GameObject item = Instantiate(loot.Item1, LootController.main.parent, true);
-                item.transform.position = transform.position;
+
+            switch (loot.Item2) {
+                case DropType.Weapon:
+                    WeaponDrop weapon = Instantiate(drop, LootController.main.parent, true);
+                    weapon.transform.position = transform.position;
+                    weapon.SetWeapon(loot.Item1.GetComponent<BaseWeapon>());
+                    break;
+                case DropType.Upgrade:
+                case DropType.Health:
+                case DropType.Ammo:
+                    GameObject upgrade = Instantiate(loot.Item1, LootController.main.parent, true);
+                    upgrade.transform.position = transform.position;
+                    break;
             }
         }
     }

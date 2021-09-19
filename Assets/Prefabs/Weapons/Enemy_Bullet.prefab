@@ -103,8 +103,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.29803923, g: 0, b: 0, a: 1}
-      key1: {r: 0.29803923, g: 0, b: 0, a: 1}
+      key0: {r: 0.94509804, g: 0.2901961, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_LightType: 1
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
-  m_Color: {r: 0.9716981, g: 0.03208439, b: 0.77401805, a: 1}
+  m_Color: {r: 0.94509804, g: 0.2901961, b: 1, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
@@ -711,7 +711,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 27339c2457f31b4489ef22de9d1a3c2c, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.94243306, g: 0.28773582, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -738,6 +738,7 @@ MonoBehaviour:
     bulletSpeed: 10
     bulletSize: 0.5
     lifetime: 0
+    passThroughEnemies: 0
   impactParticle: {fileID: 2187378320846111579, guid: f1f673ff51973cf45a3e19f400e97515, type: 3}
   impactEnemyParticle: {fileID: 5768841226446099267, guid: e19c76765c94b0a4db24dfb1785298df, type: 3}
   moveVector: {x: 0, y: 0}

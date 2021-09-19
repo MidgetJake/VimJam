@@ -2694,9 +2694,10 @@ MonoBehaviour:
   - {fileID: 7038614007257710640, guid: 10c4e0d9b5d011042826fa60fa9c2259, type: 3}
   - {fileID: 7038614007257710640, guid: fa29680bebdbcf6418c13f3bf17b5b8a, type: 3}
   m_Enemies:
-  - {fileID: 8020914385343389557, guid: 8c080e6b7339beb468897c3c969b4941, type: 3}
+  - {fileID: 8020914385343389557, guid: 0379f8c63f2bcef4f8979792fb315071, type: 3}
+  - {fileID: 8020914385343389557, guid: c44aa3d79381d5e42a07af7c3a0cd951, type: 3}
   m_Bosses:
-  - {fileID: 8020914385343389557, guid: 61400ff4834bc6443a078bcd61503630, type: 3}
+  - {fileID: 8020914385343389557, guid: 08f80eaa252f2ce4faa9183c9bc75914, type: 3}
   m_StartingWall: {fileID: 5176006791299375962, guid: 081624599decd3b4f84b11d8384c0fc5, type: 3}
   m_FinalWall: {fileID: 5176006791299375962, guid: 9f2fc126752588641b7ef08184b6649b, type: 3}
   m_FinishLine: {fileID: 7633210666103277959, guid: 7f589ea5aa09bd44b9a473104fb770a3, type: 3}

@@ -217,6 +217,8 @@ namespace Assets.Scripts.Controller {
         public void RecordDeath(GameObject obj, bool isBoss) {
             if (isBoss) { m_CurrentRoom.boss = null; }
             else { m_CurrentRoom.activeEnemies.Remove(obj); }
+
+            m_CurrentRoom.enemyCount--;
             if (m_CurrentRoom.enemyCount > 0) { return; }
 
             if (m_CurrentRoom.isBossRoom && !m_BossTriggered) { TriggerBoss(); return; }

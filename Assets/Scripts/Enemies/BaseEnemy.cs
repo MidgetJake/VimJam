@@ -60,7 +60,7 @@ namespace Enemies {
             main.OnKill(gameObject);
             foreach (BaseInteractable interactable in guaranteedDrops) {
                 BaseInteractable inter = Instantiate(interactable, LootController.main.parent, true);
-                inter.transform.position = transform.position + Vector3.one * RandomManager.GetRangeFloat(-2, 2);
+                inter.transform.position = transform.position;
             }
             
             Destroy(gameObject);

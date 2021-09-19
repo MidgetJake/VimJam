@@ -354,9 +354,15 @@ MonoBehaviour:
   minMaxHealth: {x: 0, y: 100}
   staminaRegenRate: 0.33
   staminaRegenTime: 0
+  kills: 0
+  hc: {fileID: 0}
+  cc: {fileID: 0}
+  m_StaminaController: {fileID: 0}
   isPlayer: 0
   m_PlayerController: {fileID: 0}
   isActive: 0
+  guaranteedDrops:
+  - {fileID: 173467070689229012, guid: 0af851d65c71746409c5fd13f24f34cd, type: 3}
   eventHandler: {fileID: 0}
   m_ShowLaser: 0
   m_Target: {fileID: 0}
@@ -546,3 +552,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drop: {fileID: 1364900034452631810, guid: e5cfd0f3ec0eb13409e74713e8d738c2, type: 3}
+  lootChance: 0.3

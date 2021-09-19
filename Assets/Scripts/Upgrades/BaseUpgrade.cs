@@ -48,13 +48,13 @@ namespace Upgrades {
                 
                 switch (upgradeAttributes[i]) {
                     case UpgradeAttribute.Health:
-                        value = player.playerStats.minMaxHealth.y;
-                        player.playerStats.minMaxHealth.y = (int) DoMethod(methods[i], value, values[i]);
-                        player.playerStats.health += (int) value;
+                        player.playerStats.IncreaseMaxHealth((int) values[i]);
                         break;
                     case UpgradeAttribute.Stamina:
                         value = player.playerStats.maxStamina;
-                        player.playerStats.maxStamina = (int) DoMethod(methods[i], value, values[i]);
+                        int newStamina = (int) DoMethod(methods[i], value, values[i]);
+                        int change = newStamina - player.playerStats.maxStamina;
+                        player.playerStats.IncreaseMaxStamina(change);
                         break;
                     case UpgradeAttribute.WeaponDamage:
                         value = player.currentWeapon.weaponStats.bulletStats.bulletDamage;
@@ -75,7 +75,7 @@ namespace Upgrades {
                             DoMethod(methods[i], value, values[i]);
                         break;
                     case UpgradeAttribute.PassThrough:
-                        player.currentWeapon.weaponStats.bulletStats.passThroughEnemies = ((int) value == 1);
+                        player.currentWeapon.weaponStats.bulletStats.passThroughEnemies = true;
                         break;
                     case UpgradeAttribute.BulletSize:
                         value = player.currentWeapon.weaponStats.bulletStats.bulletSize;

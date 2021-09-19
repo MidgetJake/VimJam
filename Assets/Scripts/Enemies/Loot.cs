@@ -6,9 +6,10 @@ using Weapons;
 namespace Assets.Scripts.Enemies {
     public class Loot : MonoBehaviour {
         public WeaponDrop drop;
+        public float lootChance = .3f;
         
         public void Drop() {
-            if (RandomManager.GetFloat() > .2f) {
+            if (RandomManager.GetFloat() > lootChance) {
                 return;
             }
             

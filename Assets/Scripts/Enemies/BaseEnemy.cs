@@ -1,6 +1,9 @@
 ﻿using Assets.Scripts.Controller;
 using Assets.Scripts.Enemies;
+using Controller;
 using Events;
+using Items;
+using Managers;
 using Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +13,8 @@ namespace Enemies {
     public class BaseEnemy : BaseStats {
         [HideInInspector]
         public bool isActive = true;
+
+        public BaseInteractable[] guaranteedDrops = new BaseInteractable[0];
 
         private bool m_CanMove = true;
         private EnemyAI m_AI;
@@ -52,6 +57,12 @@ namespace Enemies {
             m_AI.enabled = false;
             LevelController.controller.RecordDeath(gameObject, m_AI.isBoss);
             GetComponent<Loot>().Drop();
+            main.OnKill(gameObject);
+            foreach (BaseInteractable interactable in guaranteedDrops) {
+                BaseInteractable inter = Instantiate(interactable, LootController.main.parent, true);
+                inter.transform.position = transform.position + Vector3.one * RandomManager.GetRangeFloat(-2, 2);
+            }
+            
             Destroy(gameObject);
         }
     }

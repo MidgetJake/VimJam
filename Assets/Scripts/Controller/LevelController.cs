@@ -1,7 +1,10 @@
-﻿using Assets.Scripts.Generation.Enemies;
+﻿using System;
+using Assets.Scripts.Generation.Enemies;
 using Generation.Map;
 using Managers;
 using System.Collections.Generic;
+using Player;
+using UI;
 using Controller;
 using UnityEngine;
 using UnityEngine.AI;
@@ -31,6 +34,7 @@ namespace Assets.Scripts.Controller {
         public int starterSafeZone = 8;
         public int padding = 2;
         public int currentRoom = 0;
+        private float secondsCount;
         public Vector2 gridSize = new Vector2(16, 16);
 
         public int currentLevel;
@@ -42,15 +46,29 @@ namespace Assets.Scripts.Controller {
         private Grid m_CurrentRoom;
         private DoorController m_StartElevator;
         private bool m_BossTriggered = false;
+        private bool m_IsCounting = false;
 
         [Header("Debugging")]
         [SerializeField] private bool m_EnableTileView;
 
+        [SerializeField] public TimeCounter tc;
+        [SerializeField] public BaseStats bs;
+        [SerializeField] private FloorCounter m_FloorCounter;
+
         public void Start() {
             controller = this;
+            m_FloorCounter.SetFloorCounter(currentLevel + 1);
             NewLevel(); // temp
         }
 
+        public void Update()
+        {
+            if (m_IsCounting) {
+                secondsCount += Time.deltaTime;
+                tc.UpdateTimer((int) secondsCount);
+            }
+        }
+        
         public void TriggerRegenLevel() => NewLevel();
 
         private void ClearLevel() {
@@ -68,6 +86,7 @@ namespace Assets.Scripts.Controller {
             ClearLevel();
 
             currentLevel++;
+            m_FloorCounter.SetFloorCounter(currentLevel + 1);
 
             // Sorting out seed
             if (seeder.seed.Equals(0) || seeder.useRandom) {
@@ -94,6 +113,7 @@ namespace Assets.Scripts.Controller {
             m_CurrentRoom = Level.rooms[currentRoom];
 
             m_StartElevator.Unlock();
+            m_IsCounting = true;
         }
 
         #region Helpers
@@ -198,14 +218,17 @@ namespace Assets.Scripts.Controller {
         public void RecordDeath(GameObject obj, bool isBoss) {
             if (isBoss) { m_CurrentRoom.boss = null; }
             else { m_CurrentRoom.activeEnemies.Remove(obj); }
-            
-            if (m_CurrentRoom.activeEnemies.Count > 0) { return; }
+            if (m_CurrentRoom.enemyCount > 0) { return; }
+
             if (m_CurrentRoom.isBossRoom && !m_BossTriggered) { TriggerBoss(); return; }
-
+            
             // Room finished
-            if (m_CurrentRoom.boss == null && m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
-            if (m_CurrentRoom.isBossRoom) { return; }
+            if (m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
 
+            if (m_CurrentRoom.isBossRoom) {
+                m_IsCounting = false;
+                return;
+            }
             currentRoom++;
             m_CurrentRoom = Level.rooms[currentRoom];
         }

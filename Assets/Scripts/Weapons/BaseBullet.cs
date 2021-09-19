@@ -52,9 +52,14 @@ namespace Weapons {
                 }
             }
 
-            if (!stats.passThroughEnemies) {
+            if (hitEnemey) {
+                if (!stats.passThroughEnemies) {
+                    Destroy(gameObject);
+                }
+            } else {
                 Destroy(gameObject);
             }
+            
         }
         
         public void OnTriggerEnter2D(Collider2D collider) {

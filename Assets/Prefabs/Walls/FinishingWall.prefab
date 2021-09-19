@@ -33,6 +33,7 @@ Transform:
   - {fileID: 3953007963268040533}
   - {fileID: 6339677339966062122}
   - {fileID: 1304102999086531901}
+  - {fileID: 6588986957126997352}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -384,6 +385,50 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!1 &7767973873416308061
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6588986957126997352}
+  - component: {fileID: 4420580456130691403}
+  m_Layer: 0
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6588986957126997352
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767973873416308061}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.428, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 130371287926572892}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4420580456130691403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7767973873416308061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18416e4c1b54d32837e70620d2c2754, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: {fileID: 1364900034452631810, guid: e5cfd0f3ec0eb13409e74713e8d738c2, type: 3}
 --- !u!1001 &7699345512748613013
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -391,6 +436,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 130371287926572892}
     m_Modifications:
+    - target: {fileID: 4997947869495311049, guid: fdb04d927dbc5554286fee8744f621bd, type: 3}
+      propertyPath: m_Spawner
+      value: 
+      objectReference: {fileID: 4420580456130691403}
     - target: {fileID: 6386267683212358655, guid: fdb04d927dbc5554286fee8744f621bd, type: 3}
       propertyPath: m_Name
       value: ElevatorDoor

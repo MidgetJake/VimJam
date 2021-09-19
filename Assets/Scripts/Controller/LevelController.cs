@@ -143,7 +143,7 @@ namespace Assets.Scripts.Controller {
         private void SetupBossDesk(Grid room, ref Transform officeDecoParent) {
             GameObject bossDesk = PrefabController.controller.GetRandomBossDesk();
             Vector2 spawnPos = room.centerPos + new Vector2(gridSize.x / 4, 0);
-            SpawnControl(ref bossDesk, spawnPos, GetRandomRotation(), new Vector2(4, 4), officeDecoParent);
+            SpawnControl(ref bossDesk, spawnPos, new Quaternion(0, 0, 0, 0), new Vector2(4, 4), officeDecoParent);
         }
         private void SetupFloor() {
             m_FloorParent = new GameObject("Floor Parent").transform;

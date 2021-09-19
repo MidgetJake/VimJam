@@ -21,6 +21,7 @@ namespace Enemies {
         [Range(1, 50)] [SerializeField] private float m_DetectionRange = 10;
         [Tooltip("Seconds")]
         [Range(0, 50)] [SerializeField] private float m_DetectionRate = 1;
+        public bool canForget = true;
         [Range(0, 10)] [SerializeField] private float m_TimeUntilForget = 2;
         [Tooltip("Seconds")]
         [Range(0, 10)] [SerializeField] private float m_ShootRate = .2f;
@@ -116,6 +117,12 @@ namespace Enemies {
             List<Target> targetInSight = new List<Target>();
 
             foreach (var target in m_ActiveTargets) {
+                // BOSS CAN SEE ALL
+                if (isBoss) {
+                    if (target.obj.CompareTag("Player")) { targetInSight.Add(target); }
+                    continue;
+                }
+
                 bool obstructed = false;
 
                 GameObject targetObj = target.obj;
@@ -147,7 +154,7 @@ namespace Enemies {
         }
 
         private void StartForgetting() {
-            if (isForgetting || CurrentTarget == null) { return; }
+            if (isForgetting || CurrentTarget == null || !canForget) { return; }
             StartCoroutine(Forget());
         }
 

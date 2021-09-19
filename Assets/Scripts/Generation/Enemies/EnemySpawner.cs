@@ -22,14 +22,15 @@ namespace Assets.Scripts.Generation.Enemies {
                 // Plussing boss as enemy for wall detection
                 room.enemyCount = enemyCount;
 
-                int[] randomTile;
+                int[] randomTile; 
+                float health;
                 for (int count=0; count<enemyCount; count++) {
                     GameObject enemy = PrefabController.controller.GetRandomEnemy();
                     randomTile = RandomManager.ItemFromList(room.enemySpawners);
                     enemy.transform.SetParent(m_EnemyParent);
                     enemy.transform.position = room.Tiles[randomTile[0], randomTile[1]].position;
                     BaseEnemy baseEnemy = enemy.GetComponent<BaseEnemy>();
-                    float health = SetHealth();
+                    health = SetHealth();
                     baseEnemy.health = health;
                     baseEnemy.minMaxHealth = new Vector2(0, health);
                 }
@@ -40,7 +41,9 @@ namespace Assets.Scripts.Generation.Enemies {
                 Vector2 spawnPos = room.centerPos + new Vector2(LevelController.controller.gridSize.x / 3, 0);
                 boss.transform.position = spawnPos;
                 room.boss = boss.GetComponent<BaseEnemy>();
-                room.boss.health = SetHealth(true);
+                health = SetHealth(true);
+                room.boss.health = health;
+                room.boss.minMaxHealth = new Vector2(0, health);
             }
         }
 

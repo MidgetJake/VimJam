@@ -110,7 +110,7 @@ MonoBehaviour:
       bulletSpeed: 10
       bulletSize: 1
       lifetime: 5
-  isDefault: 0
+  isDefault: 1
   maxAmmo: 100
   currAmmo: 100
   isEnemyWeapon: 1
@@ -254,7 +254,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.25, y: 0.25}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -347,6 +347,10 @@ MonoBehaviour:
   currStamina: 10
   maxStamina: 10
   minMaxHealth: {x: 0, y: 100}
+  staminaRegenRate: 0.33
+  staminaRegenTime: 0
+  isPlayer: 0
+  m_PlayerController: {fileID: 0}
   isActive: 0
   eventHandler: {fileID: 0}
   m_ShowLaser: 0
@@ -533,3 +537,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efe4024d437fed140aa42ee3d65183a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drop: {fileID: 1364900034452631810, guid: e5cfd0f3ec0eb13409e74713e8d738c2, type: 3}

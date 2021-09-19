@@ -16,9 +16,7 @@ namespace Controller {
         public BaseWeapon[] availableWeapons;
         public float upgradeChance = .75f;
 
-        private void Start() {
-            main = this;
-        }
+        public void Start() => main = this;
         
         public (GameObject, DropType) GetLoot() {
             if (RandomManager.GetFloat() > upgradeChance) {

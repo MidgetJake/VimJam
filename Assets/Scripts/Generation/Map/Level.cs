@@ -13,6 +13,7 @@ public class Grid {
     public DoorController doorControl;
     public int enemyCount;
     public BaseEnemy boss;
+    public List<GameObject> activeEnemies;
 }
 
 public class Tile {

@@ -2,6 +2,7 @@
 using Enemies;
 using Generation.Map;
 using Managers;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Generation.Enemies {
@@ -13,7 +14,6 @@ namespace Assets.Scripts.Generation.Enemies {
             m_EnemyParent.SetParent(mainParent);
 
             foreach (var room in Level.rooms) {
-
                 int enemyCount = LevelController.controller.setEnemiesCount;
                 if (room.isBossRoom && LevelController.controller.setEnemiesCount > LevelController.controller.maxEnemiesFinalRoom) {
                     enemyCount = LevelController.controller.maxEnemiesFinalRoom;
@@ -21,6 +21,7 @@ namespace Assets.Scripts.Generation.Enemies {
 
                 // Plussing boss as enemy for wall detection
                 room.enemyCount = enemyCount;
+                room.activeEnemies = new List<GameObject>();
 
                 int[] randomTile; 
                 float health;
@@ -33,6 +34,7 @@ namespace Assets.Scripts.Generation.Enemies {
                     health = SetHealth();
                     baseEnemy.health = health;
                     baseEnemy.minMaxHealth = new Vector2(0, health);
+                    room.activeEnemies.Add(enemy);
                 }
 
                 if (!room.isBossRoom) { continue; }

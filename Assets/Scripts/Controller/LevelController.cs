@@ -195,16 +195,17 @@ namespace Assets.Scripts.Controller {
         #endregion
 
         #region Events
-        public void RecordDeath() {
-            m_CurrentRoom.enemyCount--;
-            if (m_CurrentRoom.enemyCount > 0) { return; }
-
+        public void RecordDeath(GameObject obj, bool isBoss) {
+            if (isBoss) { m_CurrentRoom.boss = null; }
+            else { m_CurrentRoom.activeEnemies.Remove(obj); }
+            
+            if (m_CurrentRoom.activeEnemies.Count > 0) { return; }
             if (m_CurrentRoom.isBossRoom && !m_BossTriggered) { TriggerBoss(); return; }
 
             // Room finished
-            if (m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
-
+            if (m_CurrentRoom.boss == null && m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
             if (m_CurrentRoom.isBossRoom) { return; }
+
             currentRoom++;
             m_CurrentRoom = Level.rooms[currentRoom];
         }
@@ -220,7 +221,7 @@ namespace Assets.Scripts.Controller {
         #endregion
 
         // Drawing for debugging purposes
-        private void OnDrawGizmos() {
+        public void OnDrawGizmos() {
             if (!m_EnableTileView) { return; }
             // preventing errors while not playing
             if (Level.rooms == null) { return; }
@@ -246,7 +247,6 @@ namespace Assets.Scripts.Controller {
                 Gizmos.DrawCube(new Vector3(room.centerPos.x, room.centerPos.y, -1), 
                     new Vector3(gridSize.x, gridSize.y, .1f)); ;
             }
-
         }
     }
 

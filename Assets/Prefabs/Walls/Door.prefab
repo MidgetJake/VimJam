@@ -62,6 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorLocked: 1
+  m_IsElevator: 0
 --- !u!1 &8951278719150850374
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +137,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.16037738, g: 0.106507346, b: 0.06254718, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

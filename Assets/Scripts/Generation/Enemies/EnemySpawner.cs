@@ -29,7 +29,9 @@ namespace Assets.Scripts.Generation.Enemies {
                     enemy.transform.SetParent(m_EnemyParent);
                     enemy.transform.position = room.Tiles[randomTile[0], randomTile[1]].position;
                     BaseEnemy baseEnemy = enemy.GetComponent<BaseEnemy>();
-                    baseEnemy.health = SetHealth();
+                    float health = SetHealth();
+                    baseEnemy.health = health;
+                    baseEnemy.minMaxHealth = new Vector2(0, health);
                 }
 
                 if (!room.isBossRoom) { continue; }

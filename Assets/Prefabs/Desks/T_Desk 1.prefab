@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 7652940820625388318}
   - component: {fileID: 1966475711517313236}
   m_Layer: 0
-  m_Name: T_Desk
+  m_Name: T_Desk 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -151,7 +151,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 853bd7025a2395a45a63bfe853a8f01c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5052791db14bf546a57d967d17ae78d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

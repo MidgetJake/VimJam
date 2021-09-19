@@ -5,17 +5,17 @@ namespace UI
 {
     public class FloorCounter : MonoBehaviour
     {
-        private TextMeshProUGUI floorCounter;
+        [SerializeField] private TextMeshProUGUI floorCounter;
 
         private void Start()
         {
             floorCounter = GetComponent<TextMeshProUGUI>();
         }
         
-        void SetFloorCounter(int floors)
+        public void SetFloorCounter(int floors)
         {
             floors++;
-            floorCounter.text = "Floor:" + floors.ToString();
+            floorCounter.text = "Floor: " + floors.ToString();
         }
     }
 }

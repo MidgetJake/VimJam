@@ -12,7 +12,7 @@ namespace UI
         }
         public void SetKillCounter(int kills)
         {
-            killCounter.text = "Kills:" + kills.ToString();
+            killCounter.text = kills.ToString();
         }
     }
 }

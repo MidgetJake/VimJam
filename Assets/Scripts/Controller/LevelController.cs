@@ -52,9 +52,11 @@ namespace Assets.Scripts.Controller {
 
         [SerializeField] public TimeCounter tc;
         [SerializeField] public BaseStats bs;
+        [SerializeField] private FloorCounter m_FloorCounter;
 
         public void Start() {
             controller = this;
+            m_FloorCounter.SetFloorCounter(currentLevel + 1);
             NewLevel(); // temp
         }
 
@@ -85,6 +87,7 @@ namespace Assets.Scripts.Controller {
             ClearLevel();
 
             currentLevel++;
+            m_FloorCounter.SetFloorCounter(currentLevel + 1);
 
             // Sorting out seed
             if (seeder.seed.Equals(0) || seeder.useRandom) {
@@ -214,7 +217,6 @@ namespace Assets.Scripts.Controller {
         #region Events
         public void RecordDeath()
         {
-            bs.Kills();
             m_CurrentRoom.enemyCount--;
             if (m_CurrentRoom.enemyCount > 0) { return; }
 

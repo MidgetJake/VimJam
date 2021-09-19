@@ -9,11 +9,7 @@ namespace UI
     public class StaminaController : MonoBehaviour
     {
 
-        private Image StaminaBarSlider = null;
-
-        private void Start()
-        {
-        }
+        [SerializeField] private Image StaminaBarSlider = null;
 
         public void UpdateStaminaBar(float currstamina, float maxstamina)
         {

@@ -5,6 +5,10 @@ namespace Upgrades {
     public class AmmoItem : BaseInteractable {
         public int ammoAmount = 25;
         public override void Interact(PlayerController player) {
+            if (player.extraWeapon == null) {
+                return;
+            }
+            
             if (player.holdingDefault) {
                 if (player.extraWeapon.currAmmo < player.extraWeapon.maxAmmo) {
                     player.extraWeapon.currAmmo += ammoAmount;

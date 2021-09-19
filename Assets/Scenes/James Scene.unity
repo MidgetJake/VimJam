@@ -1256,6 +1256,9 @@ MonoBehaviour:
     upgradePickup:
     - {fileID: 8300000, guid: 2e84a863d73c74c4986bc9760fa12257, type: 3}
     - {fileID: 8300000, guid: 8e555d1c86512aa41acb1db7b36b0ccf, type: 3}
+    weaponPickup:
+    - {fileID: 8300000, guid: 45fd233312ad71f4b85ddde99fc76c59, type: 3}
+    - {fileID: 8300000, guid: 6f8aaa3189471a940a4dd7904793d3ac, type: 3}
   volume: 1.5
 --- !u!1 &1846983355
 GameObject:

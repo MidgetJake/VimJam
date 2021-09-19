@@ -17,6 +17,7 @@ namespace Assets.Scripts.Controller {
         public AudioClip[] playerDamage;
         public AudioClip[] shoot;
         public AudioClip[] upgradePickup;
+        public AudioClip[] weaponPickup;
     }
 
     public class Audio : MonoBehaviour {
@@ -54,6 +55,7 @@ namespace Assets.Scripts.Controller {
         public void PlayerDamage(Vector3 pos) => Play(RandomManager.ItemFromArray(sfx.playerDamage), pos);
         public void Shoot(Vector3 pos) => Play(RandomManager.ItemFromArray(sfx.shoot), pos);
         public void PickupUpgrade(Vector3 pos) => Play(RandomManager.ItemFromArray(sfx.upgradePickup), pos);
+        public void PickupWeapon(Vector3 pos) => Play(RandomManager.ItemFromArray(sfx.weaponPickup), pos);
         #endregion
     }
 }

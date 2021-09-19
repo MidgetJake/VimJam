@@ -1056,10 +1056,14 @@ MonoBehaviour:
     regenLevel: 
     nextLevel: 
   numberOfRooms: 3
-  enemiesMultiply: 3
+  enemiesMultiplier: 3
   setEnemiesCount: 0
   maxEnemiesPerRoom: 15
   maxEnemiesFinalRoom: 15
+  maxEnemyHealth: 15
+  enemyHealthMultiplier: 3
+  maxBossHeath: 20
+  bossHealthMultiplier: 3
   starterSafeZone: 8
   padding: 2
   currentRoom: 0
@@ -1093,7 +1097,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.5
-  m_Pitch: 1
+  m_Pitch: 0.9
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -1189,8 +1193,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ChanceOfBreak: 25
+  m_MinMaxVolume: {x: 0.4, y: 0.5}
+  m_MaxDistance: 10
+  muteBackgroundMusic: 0
   gameIsPlaying: 0
   bossMode: 0
+  currentActive: 0
+  tempo:
+    startMenuTempo: 1
+    mainTempo: 0.95
+    bossTempo: 1.025
   music:
     intro: {fileID: 8300000, guid: d775a167ab4100042887e51ddbfbec4b, type: 3}
     musicBreak:
@@ -1203,7 +1215,9 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 6e23b86eba355704f94944610ba20e9b, type: 3}
     - {fileID: 8300000, guid: 7a617a9669316d64faf826ed683c5de7, type: 3}
     - {fileID: 8300000, guid: d7b295abd8a0b664aaea7da8bac56724, type: 3}
-    boss: []
+    boss:
+    - {fileID: 8300000, guid: dc0cc155a6a5d9c419c6f077440a06b4, type: 3}
+    - {fileID: 8300000, guid: d4b8fd3356390824d9511d0c40fe3e5b, type: 3}
 --- !u!114 &1555852317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,6 +1234,7 @@ MonoBehaviour:
     elevatorBell: {fileID: 8300000, guid: decb9611d5121044d852a601a5c3b6cc, type: 3}
     playerDeath: {fileID: 8300000, guid: 689adca765a2eee46b1f7b4812b4f3ea, type: 3}
     startGame: {fileID: 8300000, guid: 737bd9dd455544c41a34e7008a532822, type: 3}
+    dodge: {fileID: 8300000, guid: 3fb95626c968d294da44239dcdeca592, type: 3}
     bulletOnHit:
     - {fileID: 8300000, guid: a8969dc158467a748b7423431358bd5b, type: 3}
     - {fileID: 8300000, guid: e69ee6c8eeebb5d4bb2ccbea7573523e, type: 3}
@@ -1238,6 +1253,10 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 0bce540ebea6ab840bcf07f6e585eece, type: 3}
     - {fileID: 8300000, guid: fa17d3895ab17074d915201a0620dab3, type: 3}
     - {fileID: 8300000, guid: 19ffb763300c1214599efceea684b184, type: 3}
+    upgradePickup:
+    - {fileID: 8300000, guid: 2e84a863d73c74c4986bc9760fa12257, type: 3}
+    - {fileID: 8300000, guid: 8e555d1c86512aa41acb1db7b36b0ccf, type: 3}
+  volume: 1.5
 --- !u!1 &1846983355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,7 +1475,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.162242, y: 1}
+    m_SensorSize: {x: 2.2222223, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0

@@ -1,3 +1,4 @@
+using Assets.Scripts.Controller;
 using Items;
 using UI;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace Player {
         private void FixedUpdate() {
             // Do movement stuff in here
             UpdateMovement(m_MovementVector);
+            DetectDistanceFromEnemies();
         }
         #endregion
 
@@ -75,6 +77,7 @@ namespace Player {
             if (inputs.dodge && state == CharacterState.Default) {
                 ChangeState(CharacterState.Dodging);
                 m_DodgeVector = inputs.moveAxis;
+                Audio.controller.Dodge(transform.position);
             }
             
             crosshair.AimCrosshair(inputs.aimVector);
@@ -138,6 +141,20 @@ namespace Player {
             }
             
             m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement);
+        }
+
+        private void DetectDistanceFromEnemies() {
+            Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, 10, 1 << LayerMask.NameToLayer("Ignore Raycast"));
+            if (collisions.Length == 0) { BackgroundAudio.controller.IntensityAudioVolume(null); return; }
+
+            float? closestDistance = null;
+            foreach (var enemy in collisions) {
+                if (!enemy.CompareTag("Enemy")) { continue; }
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (!closestDistance.HasValue || distance < closestDistance) { closestDistance = distance; }
+            }
+
+            BackgroundAudio.controller.IntensityAudioVolume(closestDistance);
         }
     }
 }

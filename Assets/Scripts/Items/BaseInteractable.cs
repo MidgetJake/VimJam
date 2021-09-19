@@ -9,9 +9,7 @@ namespace Items {
         public abstract void Interact(PlayerController player);
         
         protected void OnTriggerEnter2D(Collider2D other) {
-            if (!other.transform.CompareTag("Player")) {
-                return;
-            }
+            if (!other.transform.CompareTag("Player")) { return; }
 
             PlayerController player = other.transform.GetComponent<PlayerController>();
             if (needsGrab) {

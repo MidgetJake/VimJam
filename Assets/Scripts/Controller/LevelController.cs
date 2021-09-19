@@ -17,10 +17,14 @@ namespace Assets.Scripts.Controller {
 
         [Header("Settings")]
         public int numberOfRooms = 3;
-        public int enemiesMultiply = 3;
+        public int enemiesMultiplier = 3;
         public int setEnemiesCount;
         public int maxEnemiesPerRoom = 15;
         public int maxEnemiesFinalRoom = 5;
+        public int maxEnemyHealth = 15;
+        public int enemyHealthMultiplier = 3;
+        public int maxBossHeath = 20;
+        public int bossHealthMultiplier = 3;
         public int starterSafeZone = 8;
         public int padding = 2;
         public int currentRoom = 0;
@@ -53,6 +57,7 @@ namespace Assets.Scripts.Controller {
             m_MainParent.rotation = Quaternion.Euler(270, 0, 0);
             currentRoom = 0;
             m_BossTriggered = false;
+            BackgroundAudio.controller.bossMode = false;
         }
 
         public void NewLevel() {
@@ -67,7 +72,7 @@ namespace Assets.Scripts.Controller {
             } else { RandomManager.SetSeed(seeder.seed); }
 
             // Sorting out enemy spawn count
-            setEnemiesCount = enemiesMultiply * currentLevel;
+            setEnemiesCount = enemiesMultiplier * currentLevel;
             if (setEnemiesCount > maxEnemiesPerRoom) { setEnemiesCount = maxEnemiesPerRoom; }
 
             // Setting up level
@@ -205,6 +210,7 @@ namespace Assets.Scripts.Controller {
 
             // triggers boss to move and attack
             m_BossTriggered = true;
+            BackgroundAudio.controller.bossMode = true;
             m_CurrentRoom.boss.isActive = true;
         }
         #endregion

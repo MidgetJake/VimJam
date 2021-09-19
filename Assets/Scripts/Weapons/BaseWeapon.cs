@@ -1,3 +1,4 @@
+using Assets.Scripts.Controller;
 using System.Collections;
 using Camera;
 using UnityEngine;
@@ -29,9 +30,7 @@ namespace Weapons {
         public void ChangeStats(BaseWeaponStats stats) => weaponStats = stats;
 
         public void Fire(Vector2 aimVector) {
-            if (m_FireCooldown > 0) {
-                return;
-            }
+            if (m_FireCooldown > 0) { return; }
             
             m_FireCooldown = 1 / (float) weaponStats.fireRate;
 
@@ -59,7 +58,7 @@ namespace Weapons {
                     totalDelay = fireDelay;
                 }
 
-                
+                Audio.controller.Shoot(transform.position);
                 
                 StartCoroutine(FireBullet(fireDir, fireDelay));
             }

@@ -41,6 +41,7 @@ namespace Player {
         private void FixedUpdate() {
             // Do movement stuff in here
             UpdateMovement(m_MovementVector);
+            DetectDistanceFromEnemies();
         }
         #endregion
 
@@ -54,6 +55,7 @@ namespace Player {
                 case CharacterState.Dodging:
                     animator.SetBool(m_Roll, true);
                     CameraFeatures.mainFeature.ZoomIn(1.08f, 0.5f, true);
+                	Audio.controller.Dodge(transform.position);
                     state = newState;
                     break;
             }
@@ -170,6 +172,20 @@ namespace Player {
             }
             
             m_Rigidbody2D.MovePosition(m_Rigidbody2D.position + movement);
+        }
+        
+        private void DetectDistanceFromEnemies() {
+            Collider2D[] collisions = Physics2D.OverlapCircleAll(transform.position, 10, 1 << LayerMask.NameToLayer("Ignore Raycast"));
+            if (collisions.Length == 0) { BackgroundAudio.controller.IntensityAudioVolume(null); return; }
+
+            float? closestDistance = null;
+            foreach (var enemy in collisions) {
+                if (!enemy.CompareTag("Enemy")) { continue; }
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (!closestDistance.HasValue || distance < closestDistance) { closestDistance = distance; }
+            }
+
+            BackgroundAudio.controller.IntensityAudioVolume(closestDistance);
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Controller;
 using Items;
 using Player;
 using UnityEngine;
@@ -76,6 +77,7 @@ namespace Upgrades {
         }
 
         public override void Interact(PlayerController player) {
+            Audio.controller.PickupUpgrade(transform.position);
             OnInteract(player);
         }
     }

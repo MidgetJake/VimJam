@@ -14,7 +14,6 @@ namespace UI
         
         public void SetFloorCounter(int floors)
         {
-            floors++;
             floorCounter.text = "Floor: " + floors.ToString();
         }
     }

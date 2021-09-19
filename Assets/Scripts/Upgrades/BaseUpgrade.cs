@@ -63,7 +63,7 @@ namespace Upgrades {
                             DoMethod(methods[i], value, values[i]);
                         break;
                     case UpgradeAttribute.PassThrough:
-                        player.currentWeapon.weaponStats.bulletStats.passThroughEnemies = ((int) value == 1);
+                        player.currentWeapon.weaponStats.bulletStats.passThroughEnemies = true;
                         break;
                     case UpgradeAttribute.BulletSize:
                         value = player.currentWeapon.weaponStats.bulletStats.bulletSize;

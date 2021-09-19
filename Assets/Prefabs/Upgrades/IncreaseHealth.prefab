@@ -48,7 +48,7 @@ MonoBehaviour:
   title: Item
   actionDesc: Increase max health by <color="green">+1</color>
   needsGrab: 1
-  upgradeAttributes: 05000000
+  upgradeAttributes: 00000000
   methods: 00000000
   values:
   - 1

@@ -215,8 +215,7 @@ namespace Assets.Scripts.Controller {
         #endregion
 
         #region Events
-        public void RecordDeath()
-        {
+        public void RecordDeath(GameObject obj, bool isBoss) {
             if (isBoss) { m_CurrentRoom.boss = null; }
             else { m_CurrentRoom.activeEnemies.Remove(obj); }
             if (m_CurrentRoom.enemyCount > 0) { return; }

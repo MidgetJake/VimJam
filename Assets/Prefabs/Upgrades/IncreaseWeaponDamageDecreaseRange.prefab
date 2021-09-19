@@ -243,13 +243,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Item
   actionDesc: Increase weapon damage by <color="green">+3</color> but decrease range 
-    by <color="red">-50%</color>
+    by <color="red">-34%</color>
   needsGrab: 1
   upgradeAttributes: 0200000004000000
   methods: 0000000001000000
   values:
-  - 1
-  - 0.5
+  - 3
+  - 0.66
   description: 
   m_TargetIntensity: 0
 --- !u!61 &-4055622881990565629

@@ -115,11 +115,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Item
   actionDesc: Increase attack speed by <color="green">+100%</color> but decrease
-    range  by <color="red">-50%</color>
+    range  by <color="red">-34%</color>
   needsGrab: 1
   upgradeAttributes: 0300000004000000
   methods: 0100000001000000
   values:
   - 2
-  - 0.5
+  - 0.66
   description: 

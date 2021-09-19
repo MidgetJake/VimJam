@@ -46,6 +46,7 @@ namespace Assets.Scripts.Controller {
         private Grid m_CurrentRoom;
         private DoorController m_StartElevator;
         private bool m_BossTriggered = false;
+        private bool m_IsCounting = false;
 
         [Header("Debugging")]
         [SerializeField] private bool m_EnableTileView;
@@ -62,14 +63,12 @@ namespace Assets.Scripts.Controller {
 
         public void Update()
         {
-            secondsCount += Time.deltaTime;
-            tc.UpdateTimer((int)secondsCount);
-            if(secondsCount >= 60){
-                secondsCount = 0;
-            }    
-
+            if (m_IsCounting) {
+                secondsCount += Time.deltaTime;
+                tc.UpdateTimer((int) secondsCount);
+            }
         }
-
+        
         public void TriggerRegenLevel() => NewLevel();
 
         private void ClearLevel() {
@@ -114,6 +113,7 @@ namespace Assets.Scripts.Controller {
             m_CurrentRoom = Level.rooms[currentRoom];
 
             m_StartElevator.Unlock();
+            m_IsCounting = true;
         }
 
         #region Helpers
@@ -225,7 +225,10 @@ namespace Assets.Scripts.Controller {
             // Room finished
             if (m_CurrentRoom.doorControl != null) { m_CurrentRoom.doorControl.Unlock(); }
 
-            if (m_CurrentRoom.isBossRoom) { return; }
+            if (m_CurrentRoom.isBossRoom) {
+                m_IsCounting = false;
+                return;
+            }
             currentRoom++;
             m_CurrentRoom = Level.rooms[currentRoom];
         }

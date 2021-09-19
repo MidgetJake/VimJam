@@ -114,10 +114,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Juicer
-  actionDesc: Increase attack speed by <color="green">+10%</color>
+  actionDesc: Increase attack speed by <color="green">+15%</color>
   needsGrab: 1
   upgradeAttributes: 03000000
   methods: 01000000
   values:
-  - 1.1
+  - 1.15
   description: 

@@ -116,7 +116,7 @@ MonoBehaviour:
   title: Item
   actionDesc: Bullets will now pass through enemies
   needsGrab: 1
-  upgradeAttributes: 07000000
+  upgradeAttributes: 08000000
   methods: 02000000
   values:
   - 1

@@ -44,7 +44,7 @@ namespace Assets.Scripts.Generation.Enemies {
 
         private static float SetHealth(bool isBoss = false) {
             LevelController control = LevelController.controller;
-            int multiplier = isBoss ? control.bossHealthMultiplier : control.enemiesMultiplier;
+            int multiplier = isBoss ? control.bossHealthMultiplier : control.enemyHealthMultiplier;
             int max = isBoss ? control.maxBossHeath : control.maxEnemyHealth;
             int baseHealth = isBoss ? control.baseBossHealth : control.baseEnemyHealth;
             float health = baseHealth + multiplier * (control.currentLevel - 1);

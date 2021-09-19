@@ -54,6 +54,7 @@ namespace Player {
                     state = newState;
                     break;
                 case CharacterState.Dodging:
+                    playerStats.staminaRegenTime = 0;
                     animator.SetBool(m_Roll, true);
                 	Audio.controller.Dodge(transform.position);
                     state = newState;
@@ -107,8 +108,11 @@ namespace Player {
             }
 
             if (inputs.dodge && state == CharacterState.Default) {
-                ChangeState(CharacterState.Dodging);
-                m_DodgeVector = inputs.moveAxis;
+                if (playerStats.currStamina > 0) {
+                    playerStats.currStamina--;
+                    ChangeState(CharacterState.Dodging);
+                    m_DodgeVector = inputs.moveAxis;
+                }
             }
             
             crosshair.AimCrosshair(inputs.aimVector);

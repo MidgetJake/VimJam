@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3432610798030629505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 2, z: 0}
+  m_LocalPosition: {x: 1.6238341, y: 2.42196, z: -0.33333278}
   m_LocalScale: {x: 0.66, y: 0.66, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -113,7 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e67e1d82ed59f4e9de7a8f6c4fc9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionDesc: Interact
+  title: Juicer
+  actionDesc: Increase attack speed by <color="green">+10%</color>
   needsGrab: 1
   upgradeAttributes: 03000000
   methods: 01000000

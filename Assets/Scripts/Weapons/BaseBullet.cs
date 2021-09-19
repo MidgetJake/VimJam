@@ -62,6 +62,10 @@ namespace Weapons {
             // Play audio
             switch (collider.tag) {
                 case "Player":
+                    PlayerController controller = collider.GetComponent<PlayerController>();
+                    if (controller.state == CharacterState.Dodging) {
+                        return;
+                    }
                     Audio.controller.PlayerDamage(transform.position);
                     break;
                 case "Enemy":

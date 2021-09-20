@@ -23,6 +23,9 @@ namespace Player {
         public BaseWeapon extraWeapon;
         public Animator animator;
         public bool holdingDefault = true;
+        public ParticleSystem dodgeParticles;
+        public Transform sprite;
+        public GameObject hud;
         
         private Vector2 m_MovementVector;
         private Rigidbody2D m_Rigidbody2D;
@@ -30,6 +33,8 @@ namespace Player {
         private Vector2 m_DodgeVector;
         private bool m_WeaponLeft = true;
         private BaseInteractable m_CurrentInteractable;
+        private BaseStats m_StartingStats;
+        private Vector3 m_FaceDir = Vector3.zero;
         private static readonly int m_MoveDir = Animator.StringToHash("WalkDir");
         private static readonly int m_Roll = Animator.StringToHash("Rolling");
 
@@ -37,16 +42,20 @@ namespace Player {
         private void Start() {
             player = this;
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            m_StartingStats = playerStats;
         }
 
         private void FixedUpdate() {
             // Do movement stuff in here
             UpdateMovement(m_MovementVector);
             DetectDistanceFromEnemies();
+            
+            float angle = Mathf.Atan2(m_MovementVector.y, m_MovementVector.x) * Mathf.Rad2Deg;
+            sprite.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
         #endregion
 
-        private void ChangeState(CharacterState newState) {
+        public void ChangeState(CharacterState newState) {
             OnLeaveState(state, newState);
             switch (newState) {
                 case CharacterState.Dead:
@@ -54,6 +63,7 @@ namespace Player {
                     state = newState;
                     break;
                 case CharacterState.Dodging:
+                    dodgeParticles.Play();
                     playerStats.staminaRegenTime = 0;
                     animator.SetBool(m_Roll, true);
                 	Audio.controller.Dodge(transform.position);
@@ -68,6 +78,7 @@ namespace Player {
             switch (oldState) {
                 case CharacterState.Dodging:
                     animator.SetBool(m_Roll, false);
+                    dodgeParticles.Stop();
                     break;
                 case CharacterState.Default:
                     break;
@@ -116,7 +127,7 @@ namespace Player {
             }
             
             crosshair.AimCrosshair(inputs.aimVector);
-            if (inputs.fire) {
+            if (inputs.fire && currentWeapon != null) {
                 currentWeapon.Fire(crosshair.transform.position);
             }
 
@@ -129,9 +140,16 @@ namespace Player {
             }
         }
 
-        public void PickupWeapon(BaseWeapon weapon) {
-            weapon.firePoint = defaultWeapon.firePoint;
-            weapon.followTransform = defaultWeapon.followTransform;
+        public void PickupWeapon(BaseWeapon weapon, bool isDefault = false) {
+            weapon.firePoint = transform;
+            weapon.followTransform = weaponFollowPoint;
+
+            if (isDefault) {
+                defaultWeapon = weapon;
+                currentWeapon = weapon;
+                AmmoCount.main.PickupWeapon(ref defaultWeapon, true);
+                return;
+            }
             
             if (holdingDefault) {
                 extraWeapon = weapon;
@@ -139,6 +157,20 @@ namespace Player {
                 currentWeapon = weapon;
                 extraWeapon = weapon;
             }
+            
+            AmmoCount.main.PickupWeapon(ref extraWeapon, false);
+        }
+
+        public void ResetPlayer() {
+            playerStats = m_StartingStats;
+            state = CharacterState.Default;
+            LevelController.controller.secondsCount = 0;
+            LevelController.controller.currentLevel = 0;
+            LevelController.controller.tc.UpdateTimer(0);
+            LevelController.controller.m_FloorCounter.SetFloorCounter(0);
+            playerStats.cc.SetKillCounter(0);
+            playerStats.hc.UpdateHealth(1, 1);
+            playerStats.m_StaminaController.UpdateStaminaBar(5, 5);
         }
         
         private void ChangeWeapon() {
@@ -155,6 +187,7 @@ namespace Player {
                 extraWeapon = currentWeapon;
                 currentWeapon = defaultWeapon;
             }
+            AmmoCount.main.SwapWeapon();
         }
         
         public void OnEnterInteractable(BaseInteractable interactable) {

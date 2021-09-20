@@ -16,11 +16,11 @@ namespace Player {
         public Vector2 minMaxHealth = new Vector2(0, 100);
         public float staminaRegenRate = .33f;
         public float staminaRegenTime = 0;
-        public int kills;
+        public int kills = 0;
 
-        [SerializeField] private HeartContainer hc;
-        [SerializeField] private KillCounter cc;
-        [SerializeField] private StaminaController m_StaminaController;
+        [SerializeField] public HeartContainer hc;
+        [SerializeField] public KillCounter cc;
+        [SerializeField] public StaminaController m_StaminaController;
 
         private EventsHandler m_EventsHandler;
         public bool isPlayer = false;
@@ -49,7 +49,7 @@ namespace Player {
 
         public virtual void TakeDamage(float damage = 1) {
             if (isPlayer) {
-                if (m_PlayerController.state == CharacterState.Dodging) {
+                if (m_PlayerController.state == CharacterState.Dodging || m_PlayerController.state == CharacterState.Dead) {
                     return;
                 }
             }
@@ -90,7 +90,11 @@ namespace Player {
 
         public virtual void Death() {
             Debug.Log("Oh... yeah... you're dead");
+            BackgroundAudio.controller.gameIsPlaying = false;
             Audio.controller.PlayerDeath(transform.position);
+            if (isPlayer) {
+                m_PlayerController.ChangeState(CharacterState.Dead);
+            }
         }
         
         public virtual void OnKill(GameObject victim) {

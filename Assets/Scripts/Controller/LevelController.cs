@@ -8,6 +8,8 @@ using UI;
 using Controller;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using Weapons;
 
 namespace Assets.Scripts.Controller {
     public class LevelController : MonoBehaviour {
@@ -18,6 +20,11 @@ namespace Assets.Scripts.Controller {
         [Header("LevelController")]
         public SeedController seeder;
         [SerializeField] private LevelControl m_LevelController;
+        
+        [Header("Lobby")]
+        [SerializeField] private GameObject m_Lobby;
+        public Vector3 spawnPoint;
+        [SerializeField] private WeaponDrop m_DefaultWeaponDrop;
 
         [Header("Settings")]
         public int numberOfRooms = 3;
@@ -34,7 +41,7 @@ namespace Assets.Scripts.Controller {
         public int starterSafeZone = 8;
         public int padding = 2;
         public int currentRoom = 0;
-        private float secondsCount;
+        public float secondsCount;
         public Vector2 gridSize = new Vector2(16, 16);
 
         public int currentLevel;
@@ -53,11 +60,11 @@ namespace Assets.Scripts.Controller {
 
         [SerializeField] public TimeCounter tc;
         [SerializeField] public BaseStats bs;
-        [SerializeField] private FloorCounter m_FloorCounter;
+        [SerializeField] public FloorCounter m_FloorCounter;
 
         public void Start() {
             controller = this;
-            NewLevel(); // temp
+            //NewLevel(); // temp
         }
 
         public void Update()
@@ -70,7 +77,7 @@ namespace Assets.Scripts.Controller {
         
         public void TriggerRegenLevel() => NewLevel();
 
-        private void ClearLevel() {
+        public void ClearLevel() {
             Destroy(m_MainParent.gameObject);
             m_MainParent = new GameObject("Main Parent").transform;
             LootController.main.parent = m_MainParent;
@@ -81,6 +88,32 @@ namespace Assets.Scripts.Controller {
             BackgroundAudio.controller.bossMode = false;
         }
 
+        public void StartGame() {
+            BackgroundAudio.controller.gameIsPlaying = true;
+        	currentLevel = 0;
+            currentRoom = 0;
+            PlayerController.player.ResetPlayer();
+            secondsCount = 0;
+            m_Lobby.SetActive(false);
+            NewLevel();
+        }
+
+        public void ReturnToLobby() {
+            BackgroundAudio.controller.gameIsPlaying = false;
+            ClearLevel();
+            m_Lobby.SetActive(true);
+            Instantiate(m_DefaultWeaponDrop, new Vector3(0.3f, -3, 0), Quaternion.identity);
+            PlayerController.player.transform.position = spawnPoint;
+            PlayerController.player.hud.SetActive(true);
+            PlayerController.player.ResetPlayer();
+        }
+
+        public void ClearEnemies() {
+            foreach (GameObject enemy in m_CurrentRoom.activeEnemies) {
+                Destroy(enemy);
+            }
+        }
+        
         public void NewLevel() {
             ClearLevel();
 

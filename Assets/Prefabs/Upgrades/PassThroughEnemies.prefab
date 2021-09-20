@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bde7c1e1ae626474abe2df35aa627c95, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.6847198, g: 0.972549, b: 0.654902, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e67e1d82ed59f4e9de7a8f6c4fc9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Item
+  title: Pierce
   actionDesc: Bullets will now pass through enemies
   needsGrab: 1
   upgradeAttributes: 08000000

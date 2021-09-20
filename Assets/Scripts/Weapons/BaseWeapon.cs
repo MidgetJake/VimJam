@@ -1,6 +1,7 @@
 using Assets.Scripts.Controller;
 using System.Collections;
 using Camera;
+using UI;
 using UnityEngine;
 
 namespace Weapons {
@@ -70,6 +71,7 @@ namespace Weapons {
 
         private IEnumerator FireBullet(Vector2 fireDir, float delay = 0) {
             yield return new WaitForSecondsRealtime(delay);
+            AmmoCount.main.UpdateAmmo();
 
             BaseBullet newBullet = Instantiate(bullet, firePoint.position, Quaternion.identity);
             newBullet.transform.localScale *= weaponStats.bulletStats.bulletSize;

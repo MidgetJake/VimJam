@@ -2978,7 +2978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 601398232132687742, guid: 8c39b4fb922a9c14dbf2881f417289cb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 601398232132687743, guid: 8c39b4fb922a9c14dbf2881f417289cb, type: 3}
       propertyPath: m_Pivot.x
@@ -9090,6 +9090,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeathScreenController
       objectReference: {fileID: 0}
+    - target: {fileID: 8033284685649028864, guid: 61ed8d5f259dd8241a2d0f8aa7e07008, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8033284685649028867, guid: 61ed8d5f259dd8241a2d0f8aa7e07008, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -9176,7 +9180,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8033284685826592632, guid: 61ed8d5f259dd8241a2d0f8aa7e07008, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 29.9
+      value: 29.900024
       objectReference: {fileID: 0}
     - target: {fileID: 8033284685943549417, guid: 61ed8d5f259dd8241a2d0f8aa7e07008, type: 3}
       propertyPath: m_AnchoredPosition.x

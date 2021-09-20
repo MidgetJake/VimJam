@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e67e1d82ed59f4e9de7a8f6c4fc9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Item
+  title: Heavy Bullet
   actionDesc: Increase weapon damage by <color="green">+3</color> but decrease range 
     by <color="red">-34%</color>
   needsGrab: 1

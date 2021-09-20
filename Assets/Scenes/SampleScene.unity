@@ -6498,7 +6498,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1643960037}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: c63722d7fc23fdf48a6274ff3ea8f3ba, type: 2}
   m_CullingMode: 0
@@ -6520,8 +6520,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a3145f3df64b06a60dc33f9aeb6a71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &1643960042
-BoxCollider2D:
+--- !u!58 &1643960040
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6534,18 +6534,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1.6}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 1.5}
-  m_EdgeRadius: 0
+  m_Radius: 0.34
 --- !u!1 &1676600594
 GameObject:
   m_ObjectHideFlags: 0
@@ -6697,7 +6687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c88f5cead0c0b2a4eb05b5900433f8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AssetsPPU: 100
+  m_AssetsPPU: 150
   m_RefResolutionX: 1280
   m_RefResolutionY: 720
   m_UpscaleRT: 1
@@ -9010,11 +9000,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6457686282957575209, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6457686282957575209, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.5
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 6457686282957575209, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9059,7 +9049,7 @@ PrefabInstance:
     - target: {fileID: 6457686282957575210, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 3374016855609083382, guid: f852195c537c26d47afa3cca19b486d0, type: 3}
+      objectReference: {fileID: 21300000, guid: f18ebff1118f601438488f2e09d966a1, type: 3}
     - target: {fileID: 6457686282957575210, guid: df9831e65b774b54bba8bcc64ed743ba, type: 3}
       propertyPath: m_SortingOrder
       value: 2

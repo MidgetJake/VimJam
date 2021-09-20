@@ -41,7 +41,7 @@ namespace Assets.Scripts.Controller {
         public int starterSafeZone = 8;
         public int padding = 2;
         public int currentRoom = 0;
-        private float secondsCount;
+        public float secondsCount;
         public Vector2 gridSize = new Vector2(16, 16);
 
         public int currentLevel;
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Controller {
         
         public void TriggerRegenLevel() => NewLevel();
 
-        private void ClearLevel() {
+        public void ClearLevel() {
             Destroy(m_MainParent.gameObject);
             m_MainParent = new GameObject("Main Parent").transform;
             LootController.main.parent = m_MainParent;
@@ -89,6 +89,10 @@ namespace Assets.Scripts.Controller {
         }
 
         public void StartGame() {
+        	currentLevel = 0;
+            currentRoom = 0;
+            PlayerController.player.ResetPlayer();
+            secondsCount = 0;
             m_Lobby.SetActive(false);
             NewLevel();
         }

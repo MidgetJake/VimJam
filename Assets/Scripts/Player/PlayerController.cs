@@ -33,7 +33,6 @@ namespace Player {
         private BaseStats m_StartingStats;
         private static readonly int m_MoveDir = Animator.StringToHash("WalkDir");
         private static readonly int m_Roll = Animator.StringToHash("Rolling");
-        private BaseStats m_StartingStats;
 
         #region Unity Events
         private void Start() {

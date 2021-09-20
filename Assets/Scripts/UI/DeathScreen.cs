@@ -15,6 +15,8 @@ public class DeathScreen : MonoBehaviour
     [SerializeField] private TextMeshProUGUI m_Kills;
     [SerializeField] private GameObject m_Screen;
 
+    [SerializeField] private float m_TimeScoreWait = 1;
+
     private void Start() => main = this;
 
     public void Trigger() {
@@ -32,19 +34,18 @@ public class DeathScreen : MonoBehaviour
 
     public void Enable() => m_Screen.SetActive(true);
 
-    public void Disable() => m_Screen.SetActive(false);
+    public void Disable() {
+        ResetVals();
+        m_Screen.SetActive(false);
+    }
 
     private IEnumerator Display() {
-        yield return CountUp(m_TimeSurvived, 120);
-        yield return new WaitForSeconds(1);
-        yield return CountUp(m_FlooredCleared, 4, true);
-        yield return new WaitForSeconds(1);
-        yield return CountUp(m_Kills, 120, true);
-        //yield return CountUp(m_TimeSurvived, LevelController.controller.secondsCount);
-        //yield return new WaitForSeconds(1);
-        //yield return CountUp(m_FlooredCleared, LevelController.controller.currentLevel, true);
-        //yield return new WaitForSeconds(1);
-        //yield return CountUp(m_Kills, PlayerController.player.playerStats.kills, true);
+        yield return new WaitForSeconds(m_TimeScoreWait);
+        yield return CountUp(m_TimeSurvived, LevelController.controller.secondsCount);
+        yield return new WaitForSeconds(m_TimeScoreWait);
+        yield return CountUp(m_FlooredCleared, LevelController.controller.currentLevel, true);
+        yield return new WaitForSeconds(m_TimeScoreWait);
+        yield return CountUp(m_Kills, PlayerController.player.playerStats.kills, true);
     }
 
     private IEnumerator CountUp(TextMeshProUGUI text, float number, bool forceInt = false) {

@@ -48,7 +48,7 @@ namespace Player {
         }
         #endregion
 
-        private void ChangeState(CharacterState newState) {
+        public void ChangeState(CharacterState newState) {
             OnLeaveState(state, newState);
             switch (newState) {
                 case CharacterState.Dead:

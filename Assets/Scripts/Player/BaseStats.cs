@@ -90,6 +90,7 @@ namespace Player {
 
         public virtual void Death() {
             Debug.Log("Oh... yeah... you're dead");
+            BackgroundAudio.controller.gameIsPlaying = false;
             Audio.controller.PlayerDeath(transform.position);
         }
         

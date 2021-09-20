@@ -89,6 +89,7 @@ namespace Assets.Scripts.Controller {
         }
 
         public void StartGame() {
+            BackgroundAudio.controller.gameIsPlaying = true;
         	currentLevel = 0;
             currentRoom = 0;
             PlayerController.player.ResetPlayer();
@@ -98,6 +99,7 @@ namespace Assets.Scripts.Controller {
         }
 
         public void ReturnToLobby() {
+            BackgroundAudio.controller.gameIsPlaying = false;
             ClearLevel();
             m_Lobby.SetActive(true);
             Instantiate(m_DefaultWeaponDrop, new Vector3(0.3f, -3, 0), Quaternion.identity);

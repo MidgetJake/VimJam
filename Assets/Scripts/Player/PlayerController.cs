@@ -32,11 +32,18 @@ namespace Player {
         private BaseInteractable m_CurrentInteractable;
         private static readonly int m_MoveDir = Animator.StringToHash("WalkDir");
         private static readonly int m_Roll = Animator.StringToHash("Rolling");
+        private BaseStats m_StartingStats;
 
         #region Unity Events
         private void Start() {
             player = this;
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
+            m_StartingStats = playerStats;
+        }
+
+        public void ResetPlayer() {
+            playerStats = m_StartingStats;
+            state = CharacterState.Default;
         }
 
         private void FixedUpdate() {

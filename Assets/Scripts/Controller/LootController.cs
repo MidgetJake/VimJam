@@ -1,4 +1,5 @@
 using Managers;
+using Player;
 using UnityEngine;
 using Upgrades;
 using Weapons;
@@ -30,7 +31,7 @@ namespace Controller {
                     return (healItem.gameObject, DropType.Health);
                 }
 
-                if (RandomManager.GetFloat() < ammoChance) {
+                if (RandomManager.GetFloat() < ammoChance && PlayerController.player.extraWeapon != null) {
                     return (ammoItem.gameObject, DropType.Ammo);
                 }
             }

@@ -16,7 +16,7 @@ namespace Player {
         public Vector2 minMaxHealth = new Vector2(0, 100);
         public float staminaRegenRate = .33f;
         public float staminaRegenTime = 0;
-        public int kills;
+        public int kills = 0;
 
         [SerializeField] private HeartContainer hc;
         [SerializeField] private KillCounter cc;

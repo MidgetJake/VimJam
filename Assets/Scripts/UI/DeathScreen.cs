@@ -34,6 +34,7 @@ public class DeathScreen : MonoBehaviour
             if (m_Time >= .5f) {
                 m_Going = false;
                 m_Screen.SetActive(true);
+                PlayerController.player.hud.SetActive(false);
                 LevelController.controller.ClearLevel();
             }
         }
@@ -64,14 +65,34 @@ public class DeathScreen : MonoBehaviour
     }
 
     private IEnumerator Display() {
-        yield return new WaitForSeconds(m_TimeScoreWait + 1.5f);
-        yield return CountUp(m_TimeSurvived, LevelController.controller.secondsCount);
+        yield return new WaitForSeconds(m_TimeScoreWait + .5f);
+        yield return CountTime(m_TimeSurvived, LevelController.controller.secondsCount);
         yield return new WaitForSeconds(m_TimeScoreWait);
         yield return CountUp(m_FlooredCleared, LevelController.controller.currentLevel, true);
         yield return new WaitForSeconds(m_TimeScoreWait);
         yield return CountUp(m_Kills, PlayerController.player.playerStats.kills, true);
     }
 
+    private IEnumerator CountTime(TextMeshProUGUI text, float secondsCount) {
+        float displayScore;
+        float t = 0;
+        float start = 0;
+        float end = secondsCount;
+        float moveDuration = 1;
+        while (t < moveDuration) {
+            
+            t += Time.deltaTime;
+            displayScore = Mathf.Lerp(start, end, t / moveDuration);
+            string secs = "" + (int) displayScore % 60;
+            if (displayScore % 60 < 10) {
+                secs = "0" + secs;
+            }
+            
+            text.text = ((int)displayScore / 60) + ":" + secs;
+            yield return null;
+        }
+    }
+    
     private IEnumerator CountUp(TextMeshProUGUI text, float number, bool forceInt = false) {
         float displayScore;
         float t = 0;

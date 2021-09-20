@@ -18,9 +18,9 @@ namespace Player {
         public float staminaRegenTime = 0;
         public int kills = 0;
 
-        [SerializeField] private HeartContainer hc;
-        [SerializeField] private KillCounter cc;
-        [SerializeField] private StaminaController m_StaminaController;
+        [SerializeField] public HeartContainer hc;
+        [SerializeField] public KillCounter cc;
+        [SerializeField] public StaminaController m_StaminaController;
 
         private EventsHandler m_EventsHandler;
         public bool isPlayer = false;

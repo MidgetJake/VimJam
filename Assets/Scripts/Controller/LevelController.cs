@@ -60,7 +60,7 @@ namespace Assets.Scripts.Controller {
 
         [SerializeField] public TimeCounter tc;
         [SerializeField] public BaseStats bs;
-        [SerializeField] private FloorCounter m_FloorCounter;
+        [SerializeField] public FloorCounter m_FloorCounter;
 
         public void Start() {
             controller = this;
@@ -102,6 +102,8 @@ namespace Assets.Scripts.Controller {
             m_Lobby.SetActive(true);
             Instantiate(m_DefaultWeaponDrop, new Vector3(0.3f, -3, 0), Quaternion.identity);
             PlayerController.player.transform.position = spawnPoint;
+            PlayerController.player.hud.SetActive(true);
+            PlayerController.player.ResetPlayer();
         }
 
         public void ClearEnemies() {

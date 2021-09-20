@@ -110,7 +110,7 @@ MonoBehaviour:
     bulletFireDelay: []
     bulletStats:
       bulletDamage: 1
-      bulletSpeed: 10
+      bulletSpeed: 4
       bulletSize: 1
       lifetime: 5
       passThroughEnemies: 0
@@ -494,8 +494,8 @@ MonoBehaviour:
       - 0
       - 0
       bulletStats:
-        bulletDamage: 10
-        bulletSpeed: 10
+        bulletDamage: 1
+        bulletSpeed: 4
         bulletSize: 2
         lifetime: 10
         passThroughEnemies: 0
@@ -512,8 +512,8 @@ MonoBehaviour:
       - 0
       - 0
       bulletStats:
-        bulletDamage: 20
-        bulletSpeed: 10
+        bulletDamage: 1
+        bulletSpeed: 5
         bulletSize: 2
         lifetime: 10
         passThroughEnemies: 0
@@ -534,9 +534,9 @@ MonoBehaviour:
       - 0
       - 0
       bulletStats:
-        bulletDamage: 20
+        bulletDamage: 1
         bulletSpeed: 12
-        bulletSize: 2
+        bulletSize: 6
         lifetime: 10
         passThroughEnemies: 0
 --- !u!114 &3302480774045863095

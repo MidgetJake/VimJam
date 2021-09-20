@@ -110,7 +110,7 @@ MonoBehaviour:
     bulletFireDelay: []
     bulletStats:
       bulletDamage: 1
-      bulletSpeed: 10
+      bulletSpeed: 4
       bulletSize: 1
       lifetime: 5
       passThroughEnemies: 0
@@ -410,9 +410,14 @@ MonoBehaviour:
   minMaxHealth: {x: 0, y: 100}
   staminaRegenRate: 0.33
   staminaRegenTime: 0
+  kills: 0
+  hc: {fileID: 0}
+  cc: {fileID: 0}
+  m_StaminaController: {fileID: 0}
   isPlayer: 0
   m_PlayerController: {fileID: 0}
   isActive: 1
+  guaranteedDrops: []
   eventHandler: {fileID: 0}
   m_ShowLaser: 0
   m_Target: {fileID: 0}
@@ -452,6 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drop: {fileID: 1364900034452631810, guid: e5cfd0f3ec0eb13409e74713e8d738c2, type: 3}
+  lootChance: 0.3
 --- !u!1 &8020914385879197977
 GameObject:
   m_ObjectHideFlags: 0

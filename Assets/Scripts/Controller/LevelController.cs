@@ -105,6 +105,12 @@ namespace Assets.Scripts.Controller {
             Instantiate(m_DefaultWeaponDrop, new Vector3(0.3f, -3, 0), Quaternion.identity);
             PlayerController.player.transform.position = spawnPoint;
         }
+
+        public void ClearEnemies() {
+            foreach (GameObject enemy in m_CurrentRoom.activeEnemies) {
+                Destroy(enemy);
+            }
+        }
         
         public void NewLevel() {
             ClearLevel();

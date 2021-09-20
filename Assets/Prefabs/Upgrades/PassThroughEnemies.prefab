@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57e67e1d82ed59f4e9de7a8f6c4fc9c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Item
+  title: Pierce
   actionDesc: Bullets will now pass through enemies
   needsGrab: 1
   upgradeAttributes: 08000000

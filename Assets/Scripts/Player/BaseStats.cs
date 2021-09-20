@@ -49,7 +49,7 @@ namespace Player {
 
         public virtual void TakeDamage(float damage = 1) {
             if (isPlayer) {
-                if (m_PlayerController.state == CharacterState.Dodging) {
+                if (m_PlayerController.state == CharacterState.Dodging || m_PlayerController.state == CharacterState.Dead) {
                     return;
                 }
             }
@@ -92,6 +92,9 @@ namespace Player {
             Debug.Log("Oh... yeah... you're dead");
             BackgroundAudio.controller.gameIsPlaying = false;
             Audio.controller.PlayerDeath(transform.position);
+            if (isPlayer) {
+                m_PlayerController.ChangeState(CharacterState.Dead);
+            }
         }
         
         public virtual void OnKill(GameObject victim) {

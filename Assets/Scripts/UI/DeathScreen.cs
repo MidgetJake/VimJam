@@ -7,8 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeathScreen : MonoBehaviour
-{
+public class DeathScreen : MonoBehaviour {
     public static DeathScreen main;
     public float scale = 5;
 
@@ -21,8 +20,12 @@ public class DeathScreen : MonoBehaviour
     [SerializeField] private float m_TimeScoreWait = 1;
     private bool m_Going;
     private float m_Time = 0;
+    private Color m_StartingColour;
 
-    private void Start() => main = this;
+    private void Start() {
+        main = this;
+        m_StartingColour = m_Blank.color;
+    }
 
     private void Update() {
         if (m_Going) {
@@ -50,6 +53,7 @@ public class DeathScreen : MonoBehaviour
         m_TimeSurvived.text = "0";
         m_FlooredCleared.text = "0";
         m_Kills.text = "0";
+        m_Blank.color = m_StartingColour;
     }
 
     public void Enable() {

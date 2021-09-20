@@ -495,7 +495,7 @@ MonoBehaviour:
       - 0
       bulletStats:
         bulletDamage: 1
-        bulletSpeed: 4
+        bulletSpeed: 5
         bulletSize: 2
         lifetime: 10
         passThroughEnemies: 0
@@ -513,7 +513,7 @@ MonoBehaviour:
       - 0
       bulletStats:
         bulletDamage: 1
-        bulletSpeed: 5
+        bulletSpeed: 6
         bulletSize: 2
         lifetime: 10
         passThroughEnemies: 0
@@ -535,8 +535,8 @@ MonoBehaviour:
       - 0
       bulletStats:
         bulletDamage: 1
-        bulletSpeed: 12
-        bulletSize: 6
+        bulletSpeed: 7
+        bulletSize: 3
         lifetime: 10
         passThroughEnemies: 0
 --- !u!114 &3302480774045863095

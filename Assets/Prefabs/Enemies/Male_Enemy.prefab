@@ -110,7 +110,7 @@ MonoBehaviour:
     bulletFireDelay: []
     bulletStats:
       bulletDamage: 1
-      bulletSpeed: 4
+      bulletSpeed: 6
       bulletSize: 1
       lifetime: 5
       passThroughEnemies: 0

@@ -30,6 +30,7 @@ namespace Player {
         private Vector2 m_DodgeVector;
         private bool m_WeaponLeft = true;
         private BaseInteractable m_CurrentInteractable;
+        private BaseStats m_StartingStats;
         private static readonly int m_MoveDir = Animator.StringToHash("WalkDir");
         private static readonly int m_Roll = Animator.StringToHash("Rolling");
         private BaseStats m_StartingStats;
@@ -39,11 +40,6 @@ namespace Player {
             player = this;
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
             m_StartingStats = playerStats;
-        }
-
-        public void ResetPlayer() {
-            playerStats = m_StartingStats;
-            state = CharacterState.Default;
         }
 
         private void FixedUpdate() {
@@ -123,7 +119,7 @@ namespace Player {
             }
             
             crosshair.AimCrosshair(inputs.aimVector);
-            if (inputs.fire) {
+            if (inputs.fire && currentWeapon != null) {
                 currentWeapon.Fire(crosshair.transform.position);
             }
 
@@ -136,9 +132,16 @@ namespace Player {
             }
         }
 
-        public void PickupWeapon(BaseWeapon weapon) {
-            weapon.firePoint = defaultWeapon.firePoint;
-            weapon.followTransform = defaultWeapon.followTransform;
+        public void PickupWeapon(BaseWeapon weapon, bool isDefault = false) {
+            weapon.firePoint = transform;
+            weapon.followTransform = weaponFollowPoint;
+
+            if (isDefault) {
+                defaultWeapon = weapon;
+                currentWeapon = weapon;
+                AmmoCount.main.PickupWeapon(ref defaultWeapon, true);
+                return;
+            }
             
             if (holdingDefault) {
                 extraWeapon = weapon;
@@ -146,6 +149,13 @@ namespace Player {
                 currentWeapon = weapon;
                 extraWeapon = weapon;
             }
+            
+            AmmoCount.main.PickupWeapon(ref extraWeapon, false);
+        }
+
+        public void ResetPlayer() {
+            playerStats = m_StartingStats;
+            state = CharacterState.Default;
         }
         
         private void ChangeWeapon() {
@@ -162,6 +172,7 @@ namespace Player {
                 extraWeapon = currentWeapon;
                 currentWeapon = defaultWeapon;
             }
+            AmmoCount.main.SwapWeapon();
         }
         
         public void OnEnterInteractable(BaseInteractable interactable) {

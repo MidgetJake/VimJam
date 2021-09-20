@@ -8,6 +8,8 @@ using UI;
 using Controller;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using Weapons;
 
 namespace Assets.Scripts.Controller {
     public class LevelController : MonoBehaviour {
@@ -18,6 +20,11 @@ namespace Assets.Scripts.Controller {
         [Header("LevelController")]
         public SeedController seeder;
         [SerializeField] private LevelControl m_LevelController;
+        
+        [Header("Lobby")]
+        [SerializeField] private GameObject m_Lobby;
+        public Vector3 spawnPoint;
+        [SerializeField] private WeaponDrop m_DefaultWeaponDrop;
 
         [Header("Settings")]
         public int numberOfRooms = 3;
@@ -57,7 +64,7 @@ namespace Assets.Scripts.Controller {
 
         public void Start() {
             controller = this;
-            NewLevel(); // temp
+            //NewLevel(); // temp
         }
 
         public void Update()
@@ -81,14 +88,22 @@ namespace Assets.Scripts.Controller {
             BackgroundAudio.controller.bossMode = false;
         }
 
-        public void NewGame() {
-            currentLevel = 0;
+        public void StartGame() {
+        	currentLevel = 0;
             currentRoom = 0;
             PlayerController.player.ResetPlayer();
             secondsCount = 0;
+            m_Lobby.SetActive(false);
             NewLevel();
         }
 
+        public void ReturnToLobby() {
+            ClearLevel();
+            m_Lobby.SetActive(true);
+            Instantiate(m_DefaultWeaponDrop, new Vector3(0.3f, -3, 0), Quaternion.identity);
+            PlayerController.player.transform.position = spawnPoint;
+        }
+        
         public void NewLevel() {
             ClearLevel();
 
@@ -225,6 +240,8 @@ namespace Assets.Scripts.Controller {
         public void RecordDeath(GameObject obj, bool isBoss) {
             if (isBoss) { m_CurrentRoom.boss = null; }
             else { m_CurrentRoom.activeEnemies.Remove(obj); }
+
+            m_CurrentRoom.enemyCount--;
             if (m_CurrentRoom.enemyCount > 0) { return; }
 
             if (m_CurrentRoom.isBossRoom && !m_BossTriggered) { TriggerBoss(); return; }

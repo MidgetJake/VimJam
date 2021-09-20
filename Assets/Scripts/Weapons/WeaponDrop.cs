@@ -6,6 +6,7 @@ using UnityEngine;
 namespace Weapons {
     public class WeaponDrop : BaseInteractable {
         public BaseWeapon weapon;
+        public bool isDefault;
 
         [SerializeField] private Sprite m_DefaultWeaponIcon;
         [SerializeField] private SpriteRenderer m_Renderer;
@@ -20,7 +21,7 @@ namespace Weapons {
         public override void Interact(PlayerController player) {
             Audio.controller.PickupWeapon(transform.position);
             BaseWeapon newWeapon = Instantiate(weapon, transform.position, Quaternion.identity);
-            player.PickupWeapon(newWeapon);
+            player.PickupWeapon(newWeapon, isDefault);
             Destroy(gameObject);
         }
     }

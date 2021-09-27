@@ -65,6 +65,7 @@ public class DeathScreen : MonoBehaviour {
     public void Disable() {
         ResetVals();
         m_Screen.SetActive(false);
+        BackgroundAudio.controller.Unmute();
     }
 
     private IEnumerator Display() {

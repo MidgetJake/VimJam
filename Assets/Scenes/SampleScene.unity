@@ -6878,7 +6878,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6500006, y: -5.3, z: -9.5}
+  m_LocalPosition: {x: -1.6500005, y: -5.3, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7562,7 +7562,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.6001462, y: 1}
+    m_SensorSize: {x: 1.5349076, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -7579,7 +7579,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1874924826}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.6500006, y: -5.3, z: -9.5}
+  m_LocalPosition: {x: -1.6500005, y: -5.3, z: -9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 690070791}
@@ -8436,7 +8436,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.542
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8489,7 +8489,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ChanceOfBreak: 25
-  m_MinMaxVolume: {x: 0.01, y: 0.1}
+  m_MinMaxVolume: {x: 0.4, y: 0.8}
   m_MaxDistance: 10
   muteBackgroundMusic: 0
   gameIsPlaying: 0
@@ -8497,8 +8497,8 @@ MonoBehaviour:
   currentActive: 0
   tempo:
     startMenuTempo: 1
-    mainTempo: 0.98
-    bossTempo: 1.02
+    mainTempo: 0.99
+    bossTempo: 1.01
   music:
     intro: {fileID: 8300000, guid: d775a167ab4100042887e51ddbfbec4b, type: 3}
     musicBreak:
